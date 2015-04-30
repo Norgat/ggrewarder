@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rewarder", "Rewarder.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GGConnector", "..\GGConnector\GGConnector.csproj", "{EE14A6FE-2019-47B0-9FCB-09F4567B990C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "..\TestApp\TestApp.csproj", "{3D6D88A9-36DD-46B1-8F95-CD0471EC0A45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{EE14A6FE-2019-47B0-9FCB-09F4567B990C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE14A6FE-2019-47B0-9FCB-09F4567B990C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE14A6FE-2019-47B0-9FCB-09F4567B990C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D6D88A9-36DD-46B1-8F95-CD0471EC0A45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D6D88A9-36DD-46B1-8F95-CD0471EC0A45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D6D88A9-36DD-46B1-8F95-CD0471EC0A45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D6D88A9-36DD-46B1-8F95-CD0471EC0A45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
