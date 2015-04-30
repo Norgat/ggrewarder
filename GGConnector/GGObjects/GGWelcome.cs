@@ -9,9 +9,6 @@ namespace GGConnector.GGObjects {
 
     [DataContract]
     class GGResponseWelcome {
-        [DataMember(Name = "type")]
-        public string type { get; set; }
-
         [DataMember(Name = "data")]
         public GGWelcome welcome { get; set; }
     }
