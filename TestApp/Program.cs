@@ -14,6 +14,8 @@ namespace TestApp {
                 gg.Connect();
                 Console.ReadKey(true);
             }
+
+            Console.ReadKey(true);
         }
     }
 }
