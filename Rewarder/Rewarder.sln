@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rewarder", "Rewarder.csproj", "{A18C5A62-A248-40D4-AE80-AE798E94AA1E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GGConnector", "..\GGConnector\GGConnector.csproj", "{EE14A6FE-2019-47B0-9FCB-09F4567B990C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{A18C5A62-A248-40D4-AE80-AE798E94AA1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A18C5A62-A248-40D4-AE80-AE798E94AA1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A18C5A62-A248-40D4-AE80-AE798E94AA1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE14A6FE-2019-47B0-9FCB-09F4567B990C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE14A6FE-2019-47B0-9FCB-09F4567B990C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE14A6FE-2019-47B0-9FCB-09F4567B990C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE14A6FE-2019-47B0-9FCB-09F4567B990C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
