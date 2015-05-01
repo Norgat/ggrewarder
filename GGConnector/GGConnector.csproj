@@ -45,9 +45,9 @@
   <ItemGroup>
     <Compile Include="CommonGGHandlers.cs" />
     <Compile Include="GG.cs" />
-    <Compile Include="GGObjects\GGRequest\ChannelsList.cs" />
-    <Compile Include="GGObjects\GGResponse\GGResponse.cs" />
-    <Compile Include="GGObjects\GGResponse\GGWelcome.cs" />
+    <Compile Include="GGObjects\ChannelsList.cs" />
+    <Compile Include="GGObjects\GGResponse.cs" />
+    <Compile Include="GGObjects\GGWelcome.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
