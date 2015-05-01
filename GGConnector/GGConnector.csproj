@@ -48,6 +48,7 @@
     <Compile Include="GGObjects\ChannelsList.cs" />
     <Compile Include="GGObjects\GGResponse.cs" />
     <Compile Include="GGObjects\GGWelcome.cs" />
+    <Compile Include="GGObjects\UsersList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

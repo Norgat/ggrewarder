@@ -6,7 +6,7 @@ using System.Threading;
 
 using WebSocketSharp;
 using GGConnector;
-using GGConnector.GGObjects.GGRequest;
+using GGConnector.GGObjects;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
@@ -18,6 +18,8 @@ namespace TestApp {
             using (var gg = new GG()) {
                 gg.Connect();
                 gg.GetChannelsList(0, 2);
+
+                gg.GetUsersList(6147);
 
                 Console.ReadKey(true);
                 Console.WriteLine("CLOSE CONNECTION");

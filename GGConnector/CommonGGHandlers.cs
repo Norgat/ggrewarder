@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebSocketSharp;
 
-using GGConnector.GGObjects.GGRequest;
+using GGConnector.GGObjects;
 
 namespace GGConnector {
     class CommonGGHandlers {
