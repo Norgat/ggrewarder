@@ -25,11 +25,11 @@ namespace GGConnector {
             try {
                 Console.WriteLine("MESSAGE: {0}", e.Data);
 
-                var resp = ParseJSONObject<GGResponse>(e.Data);
+                var resp = ParseJSONObject<Response>(e.Data);
 
                 switch (resp.type) {
                     case "welcome":
-                        var rWelcome = ParseJSONObject<GGResponseWelcome>(e.Data);
+                        var rWelcome = ParseJSONObject<ResponseWelcome>(e.Data);
                         Console.WriteLine("PROTOCOL: {0}", rWelcome.welcome.protocol);
                         break;
 

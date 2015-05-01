@@ -37,7 +37,7 @@ namespace GGConnector.GGObjects {
         public string payments { get; set; }
 
         [DataMember(Name = "mobile")]
-        public bool mobile { get; set; }
+        public string mobile { get; set; }
 
         [DataMember(Name = "hidden")]
         public bool hidden { get; set; }

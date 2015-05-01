@@ -8,13 +8,13 @@ using System.Runtime.Serialization;
 namespace GGConnector.GGObjects {
 
     [DataContract]
-    internal class GGResponseWelcome {
+    internal class ResponseWelcome {
         [DataMember(Name = "data")]
-        public GGWelcome welcome { get; set; }
+        public Welcome welcome { get; set; }
     }
 
     [DataContract]
-    public class GGWelcome {
+    public class Welcome {
         [DataMember(Name = "protocolVersion")]
         public string protocol { get; set; }
 
