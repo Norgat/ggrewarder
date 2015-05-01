@@ -10,27 +10,27 @@ using WebSocketSharp;
 
 namespace GGConnector {
     class CommonGGHandlers {
-        public static void MessageHandler(object sernder, MessageEventArgs e) {
-            Console.WriteLine("MESSAGE: {0}", e.Data);
-
-            using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(e.Data))) {
+        public static T ParseJSONObject<T>(string data) {
+            using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(data))) {
                 try {
-                    Console.WriteLine("MESSAGE RECIVED!");
-                    var serializer = new DataContractJsonSerializer(typeof(GGResponse));
-                    GGResponse resp = (GGResponse)serializer.ReadObject(ms);
-                    Console.WriteLine("TYPE: {0}", resp.type);
-
-                    if (resp.type == "welcome") {
-                        ms.Position = 0;
-                        var ser = new DataContractJsonSerializer(typeof(GGResponseWelcome));
-                        GGResponseWelcome rWelcome = (GGResponseWelcome)ser.ReadObject(ms);
-
-                        Console.WriteLine("PROTOCOL: {0}", rWelcome.welcome.protocol);
-                    }
+                    var serializer = new DataContractJsonSerializer(typeof(T));
+                    return (T)serializer.ReadObject(ms);
                 } catch (Exception exp) {
                     throw exp;
                 }
             }
+        }
+
+        public static void MessageHandler(object sernder, MessageEventArgs e) {
+            Console.WriteLine("MESSAGE: {0}", e.Data);
+
+            var resp = ParseJSONObject<GGResponse>(e.Data);
+
+            if (resp.type == "welcome") {
+                var rWelcome = ParseJSONObject<GGResponseWelcome>(e.Data);
+                Console.WriteLine("PROTOCOL: {0}", rWelcome.welcome.protocol);
+            }
+            
         }
 
         public static void ErrorHandler(object sender, WebSocketSharp.ErrorEventArgs e) {
