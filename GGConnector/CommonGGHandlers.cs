@@ -15,6 +15,7 @@ namespace GGConnector {
 
             using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(e.Data))) {
                 try {
+                    Console.WriteLine("MESSAGE RECIVED!");
                     var serializer = new DataContractJsonSerializer(typeof(GGResponse));
                     GGResponse resp = (GGResponse)serializer.ReadObject(ms);
                     Console.WriteLine("TYPE: {0}", resp.type);
