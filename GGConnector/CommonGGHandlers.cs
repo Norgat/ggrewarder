@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using WebSocketSharp;
 
+using GGConnector.GGObjects.GGRequest;
+
 namespace GGConnector {
     class CommonGGHandlers {
         public static T ParseJSONObject<T>(string data) {
@@ -26,11 +28,20 @@ namespace GGConnector {
 
             var resp = ParseJSONObject<GGResponse>(e.Data);
 
-            if (resp.type == "welcome") {
-                var rWelcome = ParseJSONObject<GGResponseWelcome>(e.Data);
-                Console.WriteLine("PROTOCOL: {0}", rWelcome.welcome.protocol);
+            switch (resp.type) {
+                case "welcome":
+                    var rWelcome = ParseJSONObject<GGResponseWelcome>(e.Data);
+                    Console.WriteLine("PROTOCOL: {0}", rWelcome.welcome.protocol);
+                    break;
+
+                case "channels_list":
+                    var rChannelsList = ParseJSONObject<ChannelsListResponse>(e.Data);
+                    Console.WriteLine("CHANNELS: {0}", rChannelsList.data.channels.Count);
+                    break;
+
+                default:
+                    break;
             }
-            
         }
 
         public static void ErrorHandler(object sender, WebSocketSharp.ErrorEventArgs e) {
