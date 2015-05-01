@@ -8,8 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using WebSocketSharp;
 
-using GGConnector.GGObjects;
-
 namespace GGConnector {
     class CommonGGHandlers {
         public static T ParseJSONObject<T>(string data) {
@@ -24,23 +22,32 @@ namespace GGConnector {
         }
 
         public static void MessageHandler(object sernder, MessageEventArgs e) {
-            Console.WriteLine("MESSAGE: {0}", e.Data);
+            try {
+                Console.WriteLine("MESSAGE: {0}", e.Data);
 
-            var resp = ParseJSONObject<GGResponse>(e.Data);
+                var resp = ParseJSONObject<GGResponse>(e.Data);
 
-            switch (resp.type) {
-                case "welcome":
-                    var rWelcome = ParseJSONObject<GGResponseWelcome>(e.Data);
-                    Console.WriteLine("PROTOCOL: {0}", rWelcome.welcome.protocol);
-                    break;
+                switch (resp.type) {
+                    case "welcome":
+                        var rWelcome = ParseJSONObject<GGResponseWelcome>(e.Data);
+                        Console.WriteLine("PROTOCOL: {0}", rWelcome.welcome.protocol);
+                        break;
 
-                case "channels_list":
-                    var rChannelsList = ParseJSONObject<ChannelsListResponse>(e.Data);
-                    Console.WriteLine("CHANNELS: {0}", rChannelsList.data.channels.Count);
-                    break;
+                    case "channels_list":
+                        var rChannelsList = ParseJSONObject<ChannelsListResponse>(e.Data);
+                        Console.WriteLine("CHANNELS: {0}", rChannelsList.data.channels.Count);
+                        break;
 
-                default:
-                    break;
+                    case "users_list":
+                        var rUsersList = ParseJSONObject<UsersListResponse>(e.Data);
+                        Console.WriteLine("USERS COUNT: {0}", rUsersList.data.users.Count);
+                        break;
+
+                    default:
+                        break;
+                }
+            } catch (Exception ex) {
+                throw ex;
             }
         }
 
