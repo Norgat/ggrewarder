@@ -10,6 +10,8 @@ using System.IO;
 using System.Runtime.Serialization.Json;
 
 using GGConnector.GGObjects;
+using System.Net;
+using System.Text.RegularExpressions;
 
 namespace GGConnector {
     public class GG: IDisposable {
@@ -46,6 +48,22 @@ namespace GGConnector {
                 ser.WriteObject(ms, obj);
                 ms.Position = 0;
                 return (new StreamReader(ms)).ReadToEnd();                
+            }
+        }
+
+        public static int GetChannelId(string streamerName) {
+            var req = (HttpWebRequest)WebRequest.Create(
+                string.Format("http://goodgame.ru/api/getchannelstatus?id={0}&fmt=json", streamerName));
+            var res = req.GetResponse();
+
+            using (var stream = new StreamReader(res.GetResponseStream())) {
+                var json = stream.ReadToEnd();
+
+                var regex = new Regex("^{\"[0-9]+\":");
+                var match = regex.Match(json);
+                var source = match.Value.Replace("{", "").Replace("\"", "").Replace(":", "");
+
+                return int.Parse(source);
             }
         }
 
