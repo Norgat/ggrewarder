@@ -29,16 +29,16 @@ namespace GGConnector.GGObjects {
     [DataContract]
     public class Channel {
         [DataMember(Name = "channel_id")]
-        public int id { get; set; }
+        public int channel_id { get; set; }
 
         [DataMember(Name = "channel_name")]
-        public string name { get; set; }
+        public string channel_name { get; set; }
 
         [DataMember(Name = "clients_in_channel")]
-        public int clients { get; set; }
+        public int clients_in_channel { get; set; }
 
         [DataMember(Name = "users_in_channel")]
-        public int users { get; set; }
+        public int users_in_channel { get; set; }
     }
 
 

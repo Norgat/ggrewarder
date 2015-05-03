@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 
 namespace GGConnector.GGObjects {
     [DataContract]
-    class Message {
+    public class Message {
         [DataMember(Name = "user_id")]
         public int user_id { get; set; }
 
@@ -22,5 +22,11 @@ namespace GGConnector.GGObjects {
 
         [DataMember(Name = "text")]
         public string text { get; set; }
+    }
+
+    [DataContract]
+    class MessageResponse {
+        [DataMember(Name = "data")]
+        public Message data { get; set; }
     }
 }

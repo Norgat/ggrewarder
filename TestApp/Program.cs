@@ -26,14 +26,24 @@ namespace TestApp {
                 gg.OnGetChannelsList += (sender, channels) => {
                     Console.WriteLine("CHANNELS LIST RECIVED");
                     Console.WriteLine("COUT(channels) = {0}", channels.channels.Count);
+
+                    var channel = channels.channels.First();
+                    Console.WriteLine("FIRST CHANNEL ID: {0}", channel.channel_id);
+                };
+
+                gg.OnMessageRecieved += (sender, message) => {
+                    Console.WriteLine("MESSAGE {0}: {1}", message.user_name, message.text);
                 };
 
                 gg.Connect();
-                gg.GetChannelsList(0, 2);
+                //gg.GetChannelsList(0, 2);
 
                 gg.GetUsersList(6147);
+                gg.Join(6147);
 
                 Console.ReadKey(true);
+
+                gg.Unjoin(6147);
                 Console.WriteLine("CLOSE CONNECTION");
             }            
 

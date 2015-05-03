@@ -29,6 +29,9 @@ namespace GGConnector {
         public delegate void WelcomeRecived(object sender, Welcome welcome);
         public event WelcomeRecived OnGetWelcome;
 
+        public delegate void MessageRecieved(object sender, Message message);
+        public event MessageRecieved OnMessageRecieved;
+
         public GG() { }
 
         public static T ParseJSONObject<T>(string data) {
@@ -44,6 +47,7 @@ namespace GGConnector {
 
         public void MessageHandler(object sender, MessageEventArgs e) {
             try {
+                //Console.WriteLine(e.Data);
                 var resp = ParseJSONObject<Response>(e.Data);
 
                 switch (resp.type) {
@@ -65,6 +69,13 @@ namespace GGConnector {
                         var rUsersList = ParseJSONObject<UsersListResponse>(e.Data);
                         if (OnGetUsersList != null) {
                             OnGetUsersList(this, rUsersList.data);
+                        }
+                        break;
+
+                    case "message":
+                        var rMessage = ParseJSONObject<MessageResponse>(e.Data);
+                        if (OnMessageRecieved != null) {
+                            OnMessageRecieved(this, rMessage.data);
                         }
                         break;
 
@@ -142,6 +153,22 @@ namespace GGConnector {
                 var reqData = new UsersListRequestData { channel_id = channel_id };
                 var req = new UsersListRequest { type = "get_users_list2", data = reqData };
                 _socket.SendAsync(SerializeJSON<UsersListRequest>(req));
+            }
+        }
+
+        public void Join(int channel_id) {
+            if (_socket != null) {
+                var reqData = new JoinRequestData { channel_id = channel_id, hidden = false };
+                var req = new JoinRequest { type = "join", data = reqData };
+                _socket.SendAsync(SerializeJSON<JoinRequest>(req));
+            }
+        }
+
+        public void Unjoin(int channel_id) {
+            if (_socket != null) {
+                var reqData = new UnjoinRequestData { channel_id = channel_id };
+                var req = new UnjoinRequest { type = "unjoin", data = reqData };
+                _socket.SendAsync(SerializeJSON<UnjoinRequest>(req));
             }
         }
     }
