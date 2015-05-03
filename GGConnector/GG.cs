@@ -50,6 +50,7 @@ namespace GGConnector {
                 //Console.WriteLine(e.Data);
                 var resp = ParseJSONObject<Response>(e.Data);
 
+                // TODO: Не все сообщения сервера обрабатываются, но обработка всех сейчас не имеет смысла
                 switch (resp.type) {
                     case "welcome":
                         var rWelcome = ParseJSONObject<ResponseWelcome>(e.Data);
@@ -87,10 +88,12 @@ namespace GGConnector {
             }
         }
 
+        // TODO: Надо будет убрать это во внешний обработчик
         public void ErrorHandler(object sender, WebSocketSharp.ErrorEventArgs e) {
             Console.WriteLine("ERROR: {0}", e.Message);
         }
 
+        // TODO: Так же, убрать во внешний обработчик
         public void CloseHandler(object sender, CloseEventArgs e) {
             Console.WriteLine("WEBSOCKET CLOSED");
         }
