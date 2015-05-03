@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 namespace GGConnector.GGObjects {
 
     [DataContract]
-    internal class ResponseWelcome {
+    class ResponseWelcome {
         [DataMember(Name = "data")]
         public Welcome welcome { get; set; }
     }

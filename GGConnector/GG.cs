@@ -20,7 +20,69 @@ namespace GGConnector {
         // Не использовать _socket.IsAlive, т.к. сервер goodgame подвисает и не отвечает на последующий запрос.
         private WebSocket _socket = null;
 
+        public delegate void UsersListRecived(object sender, UsersList users);
+        public event UsersListRecived OnGetUsersList;
+
+        public delegate void ChannelsListRecived(object sender, ChannelsList channels);
+        public event ChannelsListRecived OnGetChannelsList;
+
+        public delegate void WelcomeRecived(object sender, Welcome welcome);
+        public event WelcomeRecived OnGetWelcome;
+
         public GG() { }
+
+        public static T ParseJSONObject<T>(string data) {
+            using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(data))) {
+                try {
+                    var serializer = new DataContractJsonSerializer(typeof(T));
+                    return (T)serializer.ReadObject(ms);
+                } catch (Exception exp) {
+                    throw exp;
+                }
+            }
+        }
+
+        public void MessageHandler(object sender, MessageEventArgs e) {
+            try {
+                var resp = ParseJSONObject<Response>(e.Data);
+
+                switch (resp.type) {
+                    case "welcome":
+                        var rWelcome = ParseJSONObject<ResponseWelcome>(e.Data);
+                        if (OnGetWelcome != null) {
+                            OnGetWelcome(this, rWelcome.welcome);
+                        }
+                        break;
+
+                    case "channels_list":
+                        var rChannelsList = ParseJSONObject<ChannelsListResponse>(e.Data);
+                        if (OnGetChannelsList != null) {
+                            OnGetChannelsList(this, rChannelsList.data);
+                        }
+                        break;
+
+                    case "users_list":
+                        var rUsersList = ParseJSONObject<UsersListResponse>(e.Data);
+                        if (OnGetUsersList != null) {
+                            OnGetUsersList(this, rUsersList.data);
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+            } catch (Exception ex) {
+                throw ex;
+            }
+        }
+
+        public void ErrorHandler(object sender, WebSocketSharp.ErrorEventArgs e) {
+            Console.WriteLine("ERROR: {0}", e.Message);
+        }
+
+        public void CloseHandler(object sender, CloseEventArgs e) {
+            Console.WriteLine("WEBSOCKET CLOSED");
+        }
 
         public void Connect() {
             if (_socket != null) {
@@ -29,9 +91,9 @@ namespace GGConnector {
 
             _socket = new WebSocket(_serverAddres);
 
-            _socket.OnMessage += CommonGGHandlers.MessageHandler;
-            _socket.OnError += CommonGGHandlers.ErrorHandler;
-            _socket.OnClose += CommonGGHandlers.CloseHandler;
+            _socket.OnMessage += MessageHandler;
+            _socket.OnError += ErrorHandler;
+            _socket.OnClose += CloseHandler;            
 
             _socket.Connect();
         }

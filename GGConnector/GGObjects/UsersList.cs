@@ -20,7 +20,7 @@ namespace GGConnector.GGObjects {
     }
 
     [DataContract]
-    class User {
+    public class User {
         [DataMember(Name = "id")]
         public int id { get; set; }
 
@@ -44,7 +44,7 @@ namespace GGConnector.GGObjects {
     }
 
     [DataContract]
-    class UsersList {
+    public class UsersList {
         [DataMember(Name = "channel_id")]
         public int channel_id { get; set; }
 

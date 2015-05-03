@@ -17,15 +17,25 @@ namespace TestApp {
     class Program {
 
         static void Main(string[] args) {
-            //using (var gg = new GG()) {
-            //    gg.Connect();
-            //    gg.GetChannelsList(0, 2);
+            using (var gg = new GG()) {
+                gg.OnGetUsersList += (sender, users) => {
+                    Console.WriteLine("USERS LIST RECIVED FOR CHANNEL {0}", users.channel_id);
+                    Console.WriteLine("COUNT(users) = {0}", users.users_count);
+                };
 
-            //    gg.GetUsersList(6147);
+                gg.OnGetChannelsList += (sender, channels) => {
+                    Console.WriteLine("CHANNELS LIST RECIVED");
+                    Console.WriteLine("COUT(channels) = {0}", channels.channels.Count);
+                };
 
-            //    Console.ReadKey(true);
-            //    Console.WriteLine("CLOSE CONNECTION");
-            //}            
+                gg.Connect();
+                gg.GetChannelsList(0, 2);
+
+                gg.GetUsersList(6147);
+
+                Console.ReadKey(true);
+                Console.WriteLine("CLOSE CONNECTION");
+            }            
 
             Console.WriteLine(GG.GetChannelId("BSP"));
             Console.ReadKey(true);

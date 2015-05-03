@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 
 namespace GGConnector.GGObjects {
     [DataContract]
-    public class ChannelsListRequest {       
+    class ChannelsListRequest {       
 
         [DataMember(Name = "data")]
         public ChannelsListData data { get; set; }
@@ -17,7 +17,7 @@ namespace GGConnector.GGObjects {
     }
 
     [DataContract]
-    public class ChannelsListData {
+    class ChannelsListData {
 
         [DataMember(Name = "start")]
         public int start { get; set; }
@@ -50,7 +50,7 @@ namespace GGConnector.GGObjects {
 
 
     [DataContract]
-    public class ChannelsListResponse {
+    class ChannelsListResponse {
         [DataMember(Name = "data")]
         public ChannelsList data { get; set; }
     }
