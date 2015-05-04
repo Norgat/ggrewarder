@@ -20,6 +20,9 @@ namespace Rewarder {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow: Window {
+
+        private ConnectionManager _manager = null;
+
         public MainWindow() {
             InitializeComponent();
         }
@@ -29,8 +32,17 @@ namespace Rewarder {
 
             try {
                 var id = GG.GetChannelId(streamer);
-                MessageBox.Show(string.Format("Stream id: {0}", id));
-            } catch (Exception) {
+
+                if (_manager != null) { 
+                    _manager.Dispose(); 
+                }
+
+                _manager = new ConnectionManager(id);
+                BindingOperations.ClearBinding(usersListView, ListView.ItemsSourceProperty);
+                var bind = new Binding();
+                bind.Source = _manager.users;
+                usersListView.SetBinding(ListView.ItemsSourceProperty, bind);
+            } catch (Exception ex) {
                 MessageBox.Show("Не удалось получить Id стрима. Проверьте введённый ник стримера.");                
             }
         }
