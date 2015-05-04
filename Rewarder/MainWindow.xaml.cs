@@ -39,9 +39,15 @@ namespace Rewarder {
 
                 _manager = new ConnectionManager(id);
                 BindingOperations.ClearBinding(usersListView, ListView.ItemsSourceProperty);
-                var bind = new Binding();
-                bind.Source = _manager.users;
-                usersListView.SetBinding(ListView.ItemsSourceProperty, bind);
+                var usersBind = new Binding();
+                usersBind.Source = _manager.users;
+                usersListView.SetBinding(ListView.ItemsSourceProperty, usersBind);
+
+                BindingOperations.ClearBinding(chatControl, ListView.ItemsSourceProperty);
+                var chatBind = new Binding();
+                chatBind.Source = _manager.messages;
+                chatControl.SetBinding(ListView.ItemsSourceProperty, chatBind);
+
             } catch (Exception ex) {
                 MessageBox.Show("Не удалось получить Id стрима. Проверьте введённый ник стримера.");                
             }

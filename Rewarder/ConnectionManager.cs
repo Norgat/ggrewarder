@@ -17,6 +17,7 @@ namespace Rewarder {
         //private int _channelId;
 
         public ObservableCollection<User> users { get; set; }
+        public ObservableCollection<Message> messages { get; set; }
 
 
         public ConnectionManager(int channel_id) {
@@ -24,11 +25,13 @@ namespace Rewarder {
             //_connection = State.Wait;
 
             users = new ObservableCollection<User>();
+            messages = new ObservableCollection<Message>();
 
             _gg = new GG();
             _gg.OnGetWelcome += (sender, welcome) => {
                 //_connection = State.Connected;
                 _gg.GetUsersList(channel_id);
+                _gg.Join(channel_id);
             };
 
             _gg.OnGetUsersList += (sender, usersList) => {
@@ -36,6 +39,11 @@ namespace Rewarder {
                     users.Add(u);
                 }
             };
+
+            _gg.OnMessageRecieved += (sender, message) => {
+                messages.Add(message);
+            };
+
             _gg.Connect();
         }
 
