@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using GGConnector;
+
 namespace Rewarder {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -20,6 +22,17 @@ namespace Rewarder {
     public partial class MainWindow: Window {
         public MainWindow() {
             InitializeComponent();
+        }
+
+        private void Button_Connect(object sender, RoutedEventArgs e) {
+            var streamer = StreamerNameInput.Text;
+
+            try {
+                var id = GG.GetChannelId(streamer);
+                MessageBox.Show(string.Format("Stream id: {0}", id));
+            } catch (Exception) {
+                MessageBox.Show("Не удалось получить Id стрима. Проверьте введённый ник стримера.");                
+            }
         }
     }
 }
