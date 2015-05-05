@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Rewarder {
-    interface IElementSelector<T> {
+    public interface IElementSelector<T> {
         bool isOk(T element);
     }
 }

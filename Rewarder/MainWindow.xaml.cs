@@ -48,6 +48,11 @@ namespace Rewarder {
                 chatBind.Source = _manager.messages;
                 chatControl.SetBinding(ListView.ItemsSourceProperty, chatBind);
 
+                BindingOperations.ClearBinding(premiumUsersListView, ListView.ItemsSourceProperty);
+                var premiumBind = new Binding();
+                premiumBind.Source = _manager.premiumUsers;
+                premiumUsersListView.SetBinding(ListView.ItemsSourceProperty, premiumBind);
+
             } catch (Exception ex) {
                 MessageBox.Show("Не удалось получить Id стрима. Проверьте введённый ник стримера.");                
             }

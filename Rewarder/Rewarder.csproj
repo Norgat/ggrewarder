@@ -53,6 +53,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Selectors\PremiumSelector.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -62,8 +63,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ConnectionManager.cs" />
-    <Compile Include="RewarderCollections\FilteredList.cs" />
-    <Compile Include="RewarderCollections\IElementSelector.cs" />
+    <Compile Include="Selectors\Collections\FilteredList.cs" />
+    <Compile Include="Selectors\IElementSelector.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

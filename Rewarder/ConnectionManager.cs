@@ -8,7 +8,7 @@ using GGConnector;
 using GGConnector.GGObjects;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using Rewarder.RewarderCollections;
+using Rewarder.Collections;
 
 namespace Rewarder {
     class ConnectionManager: IDisposable {
@@ -18,16 +18,24 @@ namespace Rewarder {
         private ObservableCollection<Message> _messages;
 
         public INotifyCollectionChanged users {
-            get { return new FilteredList<User>(_users); }
+            get { return _users; }
         }
 
         public INotifyCollectionChanged messages {
             get { return _messages; } 
         }
+
+        private FilteredList<User> _premiumUsers;
+        public INotifyCollectionChanged premiumUsers {
+            get { return _premiumUsers; }
+        }
         
         public ConnectionManager(int channel_id) {
             _users = new ObservableCollection<User>();
             _messages = new ObservableCollection<Message>();
+
+            _premiumUsers = new FilteredList<User>(_users);
+            _premiumUsers.AddOrSelector(new Selectors.PremiumSelector());
 
             _gg = new GG();
             _gg.OnGetWelcome += (sender, welcome) => {

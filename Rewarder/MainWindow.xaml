@@ -43,7 +43,15 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            
+
+            <ListView Name="premiumUsersListView" Grid.Column="1" Grid.Row="1">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=name}"></TextBlock>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
             <ListView Name="chatControl" Grid.Column="3" Grid.Row="1">
                 <ListView.ItemTemplate>
                     <DataTemplate>
