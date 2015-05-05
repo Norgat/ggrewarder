@@ -8,6 +8,7 @@ using GGConnector;
 using GGConnector.GGObjects;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using Rewarder.RewarderCollections;
 
 namespace Rewarder {
     class ConnectionManager: IDisposable {
@@ -17,7 +18,7 @@ namespace Rewarder {
         private ObservableCollection<Message> _messages;
 
         public INotifyCollectionChanged users {
-            get { return _users; }
+            get { return new FilteredList<User>(_users); }
         }
 
         public INotifyCollectionChanged messages {
