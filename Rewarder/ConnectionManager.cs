@@ -7,41 +7,41 @@ using System.Threading.Tasks;
 using GGConnector;
 using GGConnector.GGObjects;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
 namespace Rewarder {
     class ConnectionManager: IDisposable {
         private GG _gg;
 
-        //private enum State { Wait = 0, Connected, Error };
-        //private State _connection;
-        //private int _channelId;
+        private ObservableCollection<User> _users;
+        private ObservableCollection<Message> _messages;
 
-        public ObservableCollection<User> users { get; set; }
-        public ObservableCollection<Message> messages { get; set; }
+        public INotifyCollectionChanged users {
+            get { return _users; }
+        }
 
-
+        public INotifyCollectionChanged messages {
+            get { return _messages; } 
+        }
+        
         public ConnectionManager(int channel_id) {
-            //_channelId = channel_id;
-            //_connection = State.Wait;
-
-            users = new ObservableCollection<User>();
-            messages = new ObservableCollection<Message>();
+            _users = new ObservableCollection<User>();
+            _messages = new ObservableCollection<Message>();
 
             _gg = new GG();
             _gg.OnGetWelcome += (sender, welcome) => {
-                //_connection = State.Connected;
                 _gg.GetUsersList(channel_id);
                 _gg.Join(channel_id);
             };
 
             _gg.OnGetUsersList += (sender, usersList) => {
                 foreach (var u in usersList.users) {
-                    users.Add(u);
+                    _users.Add(u);
                 }
             };
 
             _gg.OnMessageRecieved += (sender, message) => {
-                messages.Add(message);
+                _messages.Add(message);
             };
 
             _gg.Connect();
