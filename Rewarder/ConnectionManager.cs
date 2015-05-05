@@ -47,6 +47,7 @@ namespace Rewarder {
                 foreach (var u in usersList.users) {
                     _users.Add(u);
                 }
+                _premiumUsers.Updated();
             };
 
             _gg.OnMessageRecieved += (sender, message) => {

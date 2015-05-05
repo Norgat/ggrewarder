@@ -20,10 +20,18 @@ namespace Rewarder.Collections {
             }
         }
 
+        public void Updated() {
+            if (CollectionChanged != null) {
+                CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            }
+        }
+
         public FilteredList(ObservableCollection<T> sourceCollection) {
             _source = sourceCollection;
             _source.CollectionChanged += (sender, e) => {
-                this.CollectionChanged(this, e);
+                if (CollectionChanged != null) {
+                    CollectionChanged(this, e);
+                }
             };            
         }
 
