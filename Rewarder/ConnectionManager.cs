@@ -30,6 +30,7 @@ namespace Rewarder {
             get { return _whiteList; }
         }
 
+        #region Black list
         private ObservableCollection<User> _blackList = new ObservableCollection<User>();
         private FilteredList<User> _BlackListFilter;
         public INotifyCollectionChanged BlackList {
@@ -40,23 +41,24 @@ namespace Rewarder {
             _blackList.Add(user);
 
             // Где-то не происходит уведомление вовремя. Поэтому приходится обновлять ручками. 
-            _whiteList.Updated();            
+            _whiteList.Updated();
+            _ForRandom.Updated();
         }
 
         public void DeleteFromBlackList(User user) {
             var deletedUser = _blackList.Single(U => U.id == user.id);
             _blackList.Remove(deletedUser);
-        }
+        } 
+        #endregion
 
         public bool isInBlackList(User user) {
             return _blackList.Any(U => U.id == user.id);
         }
 
         private ObservableCollection<User> _forRandom = new ObservableCollection<User>();
-        public ObservableCollection<User> ForRandom {
-            get {
-                return _forRandom;
-            }
+        private FilteredList<User> _ForRandom;
+        public INotifyCollectionChanged ForRandom {
+            get { return _ForRandom; }
         }
         
         public ConnectionManager(int channel_id) {
@@ -74,6 +76,12 @@ namespace Rewarder {
             // Выкидываем людей состоящих в чёрном списке из белого спика
             _whiteList.Observe(_blackList);
             _whiteList.AddAndSelector(new Selectors.BlackListDeselector(_blackList));
+
+            // Составляем список людей для розыгрыша
+            _ForRandom = new FilteredList<User>(_forRandom);
+            _ForRandom.Observe(_blackList);
+            _ForRandom.Observe(_whiteList);
+            _ForRandom.AddOrSelector(new Selectors.BlackListDeselector(_blackList));
 
 
             _gg = new GG();
