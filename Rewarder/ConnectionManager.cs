@@ -66,8 +66,10 @@ namespace Rewarder {
                 _messages.Add(message);
 
                 var user = new User { id = message.user_id, name = message.user_name };
-                if (!_forRandom.Any(U => U.id == user.id)) {
-                    _forRandom.Add(user);
+                if (!_blackList.Any(U => U.id == user.id)) {
+                    if (!_forRandom.Any(U => U.id == user.id)) {
+                        _forRandom.Add(user);
+                    }
                 }
             };
 
