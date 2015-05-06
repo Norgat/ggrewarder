@@ -49,6 +49,9 @@ namespace Rewarder {
             _whiteList = new FilteredList<User>(_users);
             _whiteList.AddOrSelector(new Selectors.PremiumSelector());
 
+            _blackList.CollectionChanged +=_blackList_CollectionChanged;
+
+
             _gg = new GG();
             _gg.OnGetWelcome += (sender, welcome) => {
                 _gg.GetUsersList(channel_id);
@@ -74,6 +77,10 @@ namespace Rewarder {
             };
 
             _gg.Connect();
+        }
+
+        void _blackList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {
+            _whiteList.Updated();
         }
 
 
