@@ -73,7 +73,16 @@ namespace Rewarder {
             var box = (TextBlock)sender;
             var user = (User)box.DataContext;
 
-            MessageBox.Show(string.Format("{0}: {1}", user.id, user.name));
+            DragDrop.DoDragDrop((TextBlock)e.Source, user, DragDropEffects.Move);
+        }
+
+        private void blackUsersListView_Drop(object sender, DragEventArgs e) {
+            if (_manager != null && e.Data != null && e.Data.GetDataPresent("GGConnector.GGObjects.User")) {
+                var user = e.Data.GetData("GGConnector.GGObjects.User") as GGConnector.GGObjects.User;
+                _manager.BlackList.Add(user);
+            } else {
+                var a = 2; // for debug
+            }
         }
     }
 }

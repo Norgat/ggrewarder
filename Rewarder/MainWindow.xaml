@@ -29,7 +29,7 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*" MinHeight="500"></RowDefinition>
             </Grid.RowDefinitions>
             
             <TextBlock Grid.Column="0">Пользователи</TextBlock>
@@ -46,7 +46,7 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <ListView Name="whiteUsersListView" Grid.Column="1" Grid.Row="1">
+            <ListView Name="whiteUsersListView" Grid.Column="1" Grid.Row="1" Background="LightGreen">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Path=name}"></TextBlock>
@@ -54,13 +54,14 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <ListView Name="blackUsersListView" Grid.Column="2" Grid.Row="1">
+            <ListView Name="blackUsersListView"  Drop="blackUsersListView_Drop" MinHeight="400" Background="LightBlue" Grid.Column="2" Grid.Row="1">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Path=name}"></TextBlock>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+
 
             <ListView Name="chatControl" Grid.Column="3" Grid.Row="1">
                 <ListView.ItemTemplate>
