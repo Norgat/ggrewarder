@@ -69,7 +69,7 @@ namespace Rewarder {
             }
         }
 
-        private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e) {
+        private void TextBlock_To_BlackList(object sender, MouseButtonEventArgs e) {
             var box = (TextBlock)sender;
             var user = (User)box.DataContext;
 
@@ -79,7 +79,10 @@ namespace Rewarder {
         private void blackUsersListView_Drop(object sender, DragEventArgs e) {
             if (_manager != null && e.Data != null && e.Data.GetDataPresent("GGConnector.GGObjects.User")) {
                 var user = e.Data.GetData("GGConnector.GGObjects.User") as GGConnector.GGObjects.User;
-                _manager.BlackList.Add(user);
+
+                if (!_manager.BlackList.Any(U => U.id == user.id)) {
+                    _manager.BlackList.Add(user);
+                }
             } else {
                 var a = 2; // for debug
             }

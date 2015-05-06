@@ -34,14 +34,14 @@
             
             <TextBlock Grid.Column="0">Пользователи</TextBlock>
             <TextBlock Grid.Column="1">Отобраны</TextBlock>
-            <TextBlock Grid.Column="2">Чёрный спиоск</TextBlock>
+            <TextBlock Grid.Column="2" Drop="blackUsersListView_Drop" AllowDrop="True">Чёрный спиоск</TextBlock>
             <TextBlock Grid.Column="3">Чат</TextBlock>
             <TextBlock Grid.Column="4">Для розыгрыша</TextBlock>
 
             <ListView Name="usersListView" Grid.Column="0" Grid.Row="1">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Path=name}" MouseDown="TextBlock_MouseDown"></TextBlock>
+                        <TextBlock Text="{Binding Path=name}" MouseDown="TextBlock_To_BlackList"></TextBlock>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
@@ -49,12 +49,12 @@
             <ListView Name="whiteUsersListView" Grid.Column="1" Grid.Row="1" Background="LightGreen">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Path=name}"></TextBlock>
+                        <TextBlock Text="{Binding Path=name}" MouseDown="TextBlock_To_BlackList"></TextBlock>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
 
-            <ListView Name="blackUsersListView"  Drop="blackUsersListView_Drop" MinHeight="400" Background="LightBlue" Grid.Column="2" Grid.Row="1">
+            <ListView Name="blackUsersListView" AllowDrop="True"  Drop="blackUsersListView_Drop" MinHeight="400" Background="LightBlue" Grid.Column="2" Grid.Row="1">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Path=name}"></TextBlock>
