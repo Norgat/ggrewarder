@@ -87,5 +87,13 @@ namespace Rewarder {
                 var a = 2; // for debug
             }
         }
+
+        private void StackPanel_MouseDown(object sender, MouseButtonEventArgs e) {
+            var panel = (StackPanel)sender;
+            var message = (Message)panel.DataContext;
+            var user = new User { id = message.user_id, name = message.user_name };
+
+            DragDrop.DoDragDrop((StackPanel)sender, user, DragDropEffects.Move);
+        }
     }
 }
