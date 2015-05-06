@@ -31,8 +31,25 @@ namespace Rewarder {
         }
 
         private ObservableCollection<User> _blackList = new ObservableCollection<User>();
-        public ObservableCollection<User> BlackList {
-            get { return _blackList; }
+        private FilteredList<User> _BlackListFilter;
+        public INotifyCollectionChanged BlackList {
+            get { return _BlackListFilter; }
+        }
+
+        public void AddToBlackList(User user) {
+            _blackList.Add(user);
+
+            // Где-то не происходит уведомление вовремя. Поэтому приходится обновлять ручками. 
+            _whiteList.Updated();            
+        }
+
+        public void DeleteFromBlackList(User user) {
+            var deletedUser = _blackList.Single(U => U.id == user.id);
+            _blackList.Remove(deletedUser);
+        }
+
+        public bool isInBlackList(User user) {
+            return _blackList.Any(U => U.id == user.id);
         }
 
         private ObservableCollection<User> _forRandom = new ObservableCollection<User>();
@@ -46,10 +63,17 @@ namespace Rewarder {
             _users = new ObservableCollection<User>();
             _messages = new ObservableCollection<Message>();
 
+            // Группа пользователей для отбора для розыгрыша
             _whiteList = new FilteredList<User>(_users);
             _whiteList.AddOrSelector(new Selectors.PremiumSelector());
 
+            // Чёрный список
             _blackList.CollectionChanged +=_blackList_CollectionChanged;
+            _BlackListFilter = new FilteredList<User>(_blackList);
+            
+            // Выкидываем людей состоящих в чёрном списке из белого спика
+            _whiteList.Observe(_blackList);
+            _whiteList.AddAndSelector(new Selectors.BlackListDeselector(_blackList));
 
 
             _gg = new GG();

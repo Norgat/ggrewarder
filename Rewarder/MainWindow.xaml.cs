@@ -80,8 +80,8 @@ namespace Rewarder {
             if (_manager != null && e.Data != null && e.Data.GetDataPresent("GGConnector.GGObjects.User")) {
                 var user = e.Data.GetData("GGConnector.GGObjects.User") as GGConnector.GGObjects.User;
 
-                if (!_manager.BlackList.Any(U => U.id == user.id)) {
-                    _manager.BlackList.Add(user);
+                if (!_manager.isInBlackList(user)) {
+                    _manager.AddToBlackList(user);
                 }
             }
         }
