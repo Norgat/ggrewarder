@@ -26,14 +26,18 @@ namespace Rewarder.Collections {
             }
         }
 
-        public FilteredList(ObservableCollection<T> sourceCollection) {
-            _source = sourceCollection;
-            _source.CollectionChanged += (sender, e) => {
+        // Использовать для того, чтобы обновлять представление при обновлении других представлений
+        public void Observe(INotifyCollectionChanged someCollection) {
+            someCollection.CollectionChanged += (sender, e) => {
                 if (CollectionChanged != null) {
                     CollectionChanged(this, e);
                 }
-            };            
+            };
+        }
 
+        public FilteredList(ObservableCollection<T> sourceCollection) {
+            _source = sourceCollection;
+            Observe(_source);
         }
 
         public IEnumerator<T> GetEnumerator() {

@@ -7,5 +7,7 @@ using System.Threading.Tasks;
 namespace Rewarder {
     public interface IElementSelector<T>: IComparable<IElementSelector<T>> {
         bool isOk(T element);
+
+        // CompareTo реализовывать через GetHashCode
     }
 }

@@ -19,5 +19,9 @@ namespace Rewarder.Selectors {
                 return 1;
             }
         }
+
+        public override int GetHashCode() {
+            return base.GetHashCode();
+        }
     }
 }
