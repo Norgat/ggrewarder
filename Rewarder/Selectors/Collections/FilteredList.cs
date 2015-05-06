@@ -11,10 +11,18 @@ namespace Rewarder.Collections {
 
         private ObservableCollection<T> _source;
 
-        private HashSet<IElementSelector<T>> _AllTrueSelectors = new HashSet<IElementSelector<T>>();
+        private HashSet<IElementSelector<T>> _OrSelectors = new HashSet<IElementSelector<T>>();
+        private HashSet<IElementSelector<T>> _AndSelectors = new HashSet<IElementSelector<T>>();
 
         public void AddOrSelector(IElementSelector<T> sel) {
-            _AllTrueSelectors.Add(sel);
+            _OrSelectors.Add(sel);
+            if (CollectionChanged != null) {
+                CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            }
+        }
+
+        public void AddAndSelector(IElementSelector<T> sel) {
+            _AndSelectors.Add(sel);
             if (CollectionChanged != null) {
                 CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
             }
@@ -41,21 +49,23 @@ namespace Rewarder.Collections {
         }
 
         public IEnumerator<T> GetEnumerator() {
-            return new FilteredListEnumerator(_source.GetEnumerator(), _AllTrueSelectors);
+            return new FilteredListEnumerator(_source.GetEnumerator(), _OrSelectors, _AndSelectors);
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
-            return new FilteredListEnumerator(_source.GetEnumerator(), _AllTrueSelectors);
+            return new FilteredListEnumerator(_source.GetEnumerator(), _OrSelectors, _AndSelectors);
         }
 
         private class FilteredListEnumerator: IEnumerator<T> {
             private IEnumerator<T> _base;
             private T _current;
             private IEnumerable<IElementSelector<T>> _OrSelectors;
+            private IEnumerable<IElementSelector<T>> _AndSelectors;
 
-            public FilteredListEnumerator(IEnumerator<T> baseEnumerator, IEnumerable<IElementSelector<T>> orSelectors) {
+            public FilteredListEnumerator(IEnumerator<T> baseEnumerator, IEnumerable<IElementSelector<T>> orSelectors, IEnumerable<IElementSelector<T>> AndSelectors) {
                 _base = baseEnumerator;
                 _OrSelectors = orSelectors;
+                _AndSelectors = AndSelectors;
             }
 
             public T Current {
@@ -72,10 +82,21 @@ namespace Rewarder.Collections {
 
             public bool MoveNext() {
                 while (_base.MoveNext()) {
-                    foreach (var sel in _OrSelectors) {
-                        if (sel.isOk(_base.Current)) {
+                    foreach (var sel_or in _OrSelectors) {
+                        if (sel_or.isOk(_base.Current)) {
                             _current = _base.Current;
-                            return true;
+
+                            var and_flag = true;
+                            foreach (var sel_and in _AndSelectors) {
+                                and_flag &= sel_and.isOk(_base.Current);
+                                if (!and_flag) {
+                                    break;
+                                }
+                            }
+
+                            if (and_flag == true) {
+                                return true;
+                            }
                         }
                     }
                 }
