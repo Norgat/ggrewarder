@@ -62,6 +62,7 @@ namespace Rewarder {
         }
         
         public ConnectionManager(int channel_id) {
+            #region List initializations
             _users = new ObservableCollection<User>();
             _messages = new ObservableCollection<Message>();
 
@@ -72,7 +73,7 @@ namespace Rewarder {
             // Чёрный список
             _blackList.CollectionChanged +=_blackList_CollectionChanged;
             _BlackListFilter = new FilteredList<User>(_blackList);
-            
+
             // Выкидываем людей состоящих в чёрном списке из белого спика
             _whiteList.Observe(_blackList);
             _whiteList.AddAndSelector(new Selectors.BlackListDeselector(_blackList));
@@ -81,10 +82,11 @@ namespace Rewarder {
             _ForRandom = new FilteredList<User>(_forRandom);
             _ForRandom.Observe(_blackList);
             _ForRandom.Observe(_whiteList);
-            _ForRandom.AddOrSelector(new Selectors.BlackListDeselector(_blackList));
-
-
+            _ForRandom.AddOrSelector(new Selectors.BlackListDeselector(_blackList)); 
+            #endregion
+            
             _gg = new GG();
+            #region GG API Callbacks
             _gg.OnGetWelcome += (sender, welcome) => {
                 _gg.GetUsersList(channel_id);
                 _gg.Join(channel_id);
@@ -108,6 +110,7 @@ namespace Rewarder {
                 }
             };
 
+            #endregion
             _gg.Connect();
         }
 
