@@ -13,11 +13,7 @@ namespace Rewarder.Selectors {
         }
 
         public int CompareTo(IElementSelector<User> other) {
-            if (other != null) {
-                return 0;
-            } else {
-                return 1;
-            }
+            return this.GetHashCode().CompareTo(other.GetHashCode());
         }
 
         public override int GetHashCode() {

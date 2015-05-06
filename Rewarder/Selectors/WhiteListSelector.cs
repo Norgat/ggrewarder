@@ -9,7 +9,11 @@ using GGConnector.GGObjects;
 namespace Rewarder.Selectors {
     public class WhiteListSelector: IElementSelector<User> {
 
-        protected ICollection<User> _white = null;
+        protected ICollection<User> _white;
+
+        public WhiteListSelector(ICollection<User> whiteList) {
+            _white = whiteList;
+        }
 
 
         public bool isOk(User element) {
@@ -25,7 +29,11 @@ namespace Rewarder.Selectors {
         }
 
         public override int GetHashCode() {
-            return string.Format("WhiteListSelector<User> {0}", _white.GetHashCode()).GetHashCode();
+            if (_white != null) {
+                return string.Format("WhiteListSelector<User> {0}", _white.GetHashCode()).GetHashCode();
+            } else {
+                return string.Format("WhiteListSelector<User>").GetHashCode();
+            }
         }
     }
 }
