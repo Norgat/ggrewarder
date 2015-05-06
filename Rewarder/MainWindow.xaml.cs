@@ -83,8 +83,6 @@ namespace Rewarder {
                 if (!_manager.BlackList.Any(U => U.id == user.id)) {
                     _manager.BlackList.Add(user);
                 }
-            } else {
-                var a = 2; // for debug
             }
         }
 
