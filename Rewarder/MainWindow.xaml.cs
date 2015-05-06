@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using GGConnector;
+using GGConnector.GGObjects;
 
 namespace Rewarder {
     /// <summary>
@@ -48,14 +49,31 @@ namespace Rewarder {
                 chatBind.Source = _manager.messages;
                 chatControl.SetBinding(ListView.ItemsSourceProperty, chatBind);
 
-                BindingOperations.ClearBinding(premiumUsersListView, ListView.ItemsSourceProperty);
+                BindingOperations.ClearBinding(whiteUsersListView, ListView.ItemsSourceProperty);
                 var premiumBind = new Binding();
-                premiumBind.Source = _manager.premiumUsers;
-                premiumUsersListView.SetBinding(ListView.ItemsSourceProperty, premiumBind);
+                premiumBind.Source = _manager.WhiteList;
+                whiteUsersListView.SetBinding(ListView.ItemsSourceProperty, premiumBind);
+
+                BindingOperations.ClearBinding(blackUsersListView, ListView.ItemsSourceProperty);
+                var blackListBind = new Binding();
+                blackListBind.Source = _manager.BlackList;
+                blackUsersListView.SetBinding(ListView.ItemsSourceProperty, blackListBind);
+
+                BindingOperations.ClearBinding(forRandowUsersListView, ListView.ItemsSourceProperty);
+                var forRandomBind = new Binding();
+                forRandomBind.Source = _manager.ForRandom;
+                forRandowUsersListView.SetBinding(ListView.ItemsSourceProperty, forRandomBind);
 
             } catch (Exception ex) {
                 MessageBox.Show("Не удалось получить Id стрима. Проверьте введённый ник стримера.");                
             }
+        }
+
+        private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e) {
+            var box = (TextBlock)sender;
+            var user = (User)box.DataContext;
+
+            MessageBox.Show(string.Format("{0}: {1}", user.id, user.name));
         }
     }
 }

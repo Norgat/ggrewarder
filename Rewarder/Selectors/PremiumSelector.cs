@@ -11,5 +11,13 @@ namespace Rewarder.Selectors {
         public bool isOk(User element) {
             return element.premium;
         }
+
+        public int CompareTo(IElementSelector<User> other) {
+            if (other != null) {
+                return 0;
+            } else {
+                return 1;
+            }
+        }
     }
 }

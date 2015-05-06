@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Rewarder {
-    public interface IElementSelector<T> {
+    public interface IElementSelector<T>: IComparable<IElementSelector<T>> {
         bool isOk(T element);
     }
 }

@@ -11,7 +11,7 @@ namespace Rewarder.Collections {
 
         private ObservableCollection<T> _source;
 
-        private List<IElementSelector<T>> _AllTrueSelectors = new List<IElementSelector<T>>();
+        private HashSet<IElementSelector<T>> _AllTrueSelectors = new HashSet<IElementSelector<T>>();
 
         public void AddOrSelector(IElementSelector<T> sel) {
             _AllTrueSelectors.Add(sel);
@@ -33,6 +33,7 @@ namespace Rewarder.Collections {
                     CollectionChanged(this, e);
                 }
             };            
+
         }
 
         public IEnumerator<T> GetEnumerator() {

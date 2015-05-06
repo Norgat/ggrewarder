@@ -16,7 +16,7 @@ namespace Rewarder {
 
         private ObservableCollection<User> _users;
         private ObservableCollection<Message> _messages;
-
+                
         public INotifyCollectionChanged users {
             get { return _users; }
         }
@@ -25,17 +25,29 @@ namespace Rewarder {
             get { return _messages; } 
         }
 
-        private FilteredList<User> _premiumUsers;
-        public INotifyCollectionChanged premiumUsers {
-            get { return _premiumUsers; }
+        private FilteredList<User> _whiteList;
+        public INotifyCollectionChanged WhiteList {
+            get { return _whiteList; }
+        }
+
+        private ObservableCollection<User> _blackList = new ObservableCollection<User>();
+        public ObservableCollection<User> BlackList {
+            get { return _blackList; }
+        }
+
+        private ObservableCollection<User> _forRandom = new ObservableCollection<User>();
+        public ObservableCollection<User> ForRandom {
+            get {
+                return _forRandom;
+            }
         }
         
         public ConnectionManager(int channel_id) {
             _users = new ObservableCollection<User>();
             _messages = new ObservableCollection<Message>();
 
-            _premiumUsers = new FilteredList<User>(_users);
-            _premiumUsers.AddOrSelector(new Selectors.PremiumSelector());
+            _whiteList = new FilteredList<User>(_users);
+            _whiteList.AddOrSelector(new Selectors.PremiumSelector());
 
             _gg = new GG();
             _gg.OnGetWelcome += (sender, welcome) => {
@@ -47,11 +59,16 @@ namespace Rewarder {
                 foreach (var u in usersList.users) {
                     _users.Add(u);
                 }
-                _premiumUsers.Updated();
+                _whiteList.Updated();
             };
 
             _gg.OnMessageRecieved += (sender, message) => {
                 _messages.Add(message);
+
+                var user = new User { id = message.user_id, name = message.user_name };
+                if (!_forRandom.Any(U => U.id == user.id)) {
+                    _forRandom.Add(user);
+                }
             };
 
             _gg.Connect();
