@@ -14,6 +14,7 @@ namespace Rewarder.Collections {
         private HashSet<IElementSelector<T>> _OrSelectors = new HashSet<IElementSelector<T>>();
         private HashSet<IElementSelector<T>> _AndSelectors = new HashSet<IElementSelector<T>>();
 
+        #region Add and Remove selectors
         public void AddOrSelector(IElementSelector<T> sel) {
             _OrSelectors.Add(sel);
             if (CollectionChanged != null) {
@@ -27,6 +28,21 @@ namespace Rewarder.Collections {
                 CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
             }
         }
+
+        public void RemoveOrSelector(IElementSelector<T> sel) {
+            _OrSelectors.Remove(sel);
+            if (CollectionChanged != null) {
+                CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            }
+        }
+
+        public void RemoveAndSelector(IElementSelector<T> sel) {
+            _AndSelectors.Remove(sel);
+            if (CollectionChanged != null) {
+                CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            }
+        } 
+        #endregion
 
         public void Updated() {
             if (CollectionChanged != null) {

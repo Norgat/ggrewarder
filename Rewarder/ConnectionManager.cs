@@ -56,12 +56,12 @@ namespace Rewarder {
             if (indx != -1) {
                 _blackList.RemoveAt(indx);
             }
-        } 
-        #endregion
+        }
 
         public bool isInBlackList(User user) {
             return _blackList.Any(U => U.id == user.id);
         }
+        #endregion        
 
         private ObservableCollection<User> _forRandom = new ObservableCollection<User>();
         private FilteredList<User> _ForRandom;
@@ -79,9 +79,10 @@ namespace Rewarder {
 
             // Группа пользователей для отбора для розыгрыша
             _whiteList = new FilteredList<User>(_users);
-            _whiteList.AddOrSelector(new Selectors.PremiumSelector());            
+            _whiteList.AddOrSelector(new Selectors.PremiumSelector());
+            _whiteList.AddOrSelector(new Selectors.NotPremiumSelector());
             _whiteList.Observe(_blackList);
-            _whiteList.AddAndSelector(new Selectors.BlackListDeselector(_blackList));
+            _whiteList.AddAndSelector(new Selectors.BlackListDeselector(_blackList));            
 
             // Составляем список людей для розыгрыша
             _ForRandom = new FilteredList<User>(_forRandom);
