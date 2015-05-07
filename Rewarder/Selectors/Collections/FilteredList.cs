@@ -29,6 +29,14 @@ namespace Rewarder.Collections {
             }
         }
 
+        public bool isOrContained(IElementSelector<T> sel) {
+            return _OrSelectors.Contains(sel);
+        }
+
+        public bool isAndContaied(IElementSelector<T> sel) {
+            return _AndSelectors.Contains(sel);
+        }
+
         public void RemoveOrSelector(IElementSelector<T> sel) {
             _OrSelectors.Remove(sel);
             if (CollectionChanged != null) {

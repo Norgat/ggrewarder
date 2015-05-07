@@ -33,5 +33,9 @@ namespace Rewarder.Selectors {
                 return string.Format("BlackListDeselector<User>").GetHashCode();
             }
         }
+
+        public override bool Equals(object obj) {
+            return this.GetHashCode() == obj.GetHashCode();
+        }
     }
 }

@@ -38,8 +38,8 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="1">
-                    <Button Margin="2">Не премиум</Button>
-                    <Button Margin="2">Премиум</Button>
+                    <Button Margin="2" Click="Button_Click_NotPremium_White">Не премиум</Button>
+                    <Button Margin="2" Click="Button_Click_Premium_White">Премиум</Button>
                 </StackPanel>
 
                 <StackPanel Grid.Column="2">

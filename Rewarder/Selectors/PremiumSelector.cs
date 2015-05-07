@@ -19,5 +19,9 @@ namespace Rewarder.Selectors {
         public override int GetHashCode() {
             return "PremiumSelector".GetHashCode();
         }
+
+        public override bool Equals(object obj) {
+            return this.GetHashCode() == obj.GetHashCode();
+        }
     }
 }

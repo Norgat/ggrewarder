@@ -111,8 +111,18 @@ namespace Rewarder {
         }
 
         private void Button_Raward(object sender, RoutedEventArgs e) {
+            if (_manager == null) {
+                MessageBox.Show("Вы не в чате.");
+                return;
+            }
+
             var randomSeq = (IEnumerable<User>)_manager.ForRandom;
             var rList = randomSeq.ToList();
+
+            if (rList.Count <= 0) {
+                MessageBox.Show("Увы, никого нет.");
+                return;
+            }
 
             var rand = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
             var lucky = rand.Next(rList.Count);
@@ -122,6 +132,32 @@ namespace Rewarder {
 
         private void Button_ClearRewardList(object sender, RoutedEventArgs e) {
 
+        }
+
+        private void Button_Click_NotPremium_White(object sender, RoutedEventArgs e) {
+            if (_manager != null) {
+                var sel = new Selectors.NotPremiumSelector();
+                var fl = (Rewarder.Collections.FilteredList<User>)_manager.WhiteList;
+
+                if (fl.isOrContained(sel)) {
+                    fl.RemoveOrSelector(sel);
+                } else {
+                    fl.AddOrSelector(sel);
+                }
+            }
+        }
+
+        private void Button_Click_Premium_White(object sender, RoutedEventArgs e) {
+            if (_manager != null) {
+                var sel = new Selectors.PremiumSelector();
+                var fl = (Rewarder.Collections.FilteredList<User>)_manager.WhiteList;
+
+                if (fl.isOrContained(sel)) {
+                    fl.RemoveOrSelector(sel);
+                } else {
+                    fl.AddOrSelector(sel);
+                }
+            }
         }
     }
 }
