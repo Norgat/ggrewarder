@@ -64,8 +64,8 @@ namespace Rewarder {
                 forRandomBind.Source = _manager.ForRandom;
                 forRandowUsersListView.SetBinding(ListView.ItemsSourceProperty, forRandomBind);
 
-            } catch (Exception ex) {
-                MessageBox.Show("Не удалось получить Id стрима. Проверьте введённый ник стримера.");                
+            } catch (Exception) {
+                MessageBox.Show("Что-то пошло не так.");                
             }
         }
 
@@ -92,6 +92,17 @@ namespace Rewarder {
             var user = new User { id = message.user_id, name = message.user_name };
 
             DragDrop.DoDragDrop((StackPanel)sender, user, DragDropEffects.Move);
+        }
+
+        private void TextBlock_KeyDown(object sender, KeyEventArgs e) {
+            if (e != null) {
+                if (e.Key == Key.Delete) {
+                    var list = (ListView)sender;
+                    var user = (User)list.SelectedItem;
+
+                    _manager.DeleteFromBlackList(user);
+                }
+            }
         }
     }
 }

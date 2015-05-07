@@ -37,9 +37,7 @@ namespace Rewarder.Collections {
         // Использовать для того, чтобы обновлять представление при обновлении других представлений
         public void Observe(INotifyCollectionChanged someCollection) {
             someCollection.CollectionChanged += (sender, e) => {
-                if (CollectionChanged != null) {
-                    CollectionChanged(this, e);
-                }
+                Updated();
             };
         }
 
@@ -56,9 +54,29 @@ namespace Rewarder.Collections {
             return new FilteredListEnumerator(_source.GetEnumerator(), _OrSelectors, _AndSelectors);
         }
 
+        public static bool inResult(IEnumerable<IElementSelector<T>> _OrSelectors, IEnumerable<IElementSelector<T>> _AndSelectors, T elem) {
+            foreach (var sel_or in _OrSelectors) {
+                if (sel_or.isOk(elem)) {
+
+                    var and_flag = true;
+                    foreach (var sel_and in _AndSelectors) {
+                        and_flag &= sel_and.isOk(elem);
+                        if (!and_flag) {
+                            break;
+                        }
+                    }
+
+                    if (and_flag == true) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
         private class FilteredListEnumerator: IEnumerator<T> {
             private IEnumerator<T> _base;
-            private T _current;
             private IEnumerable<IElementSelector<T>> _OrSelectors;
             private IEnumerable<IElementSelector<T>> _AndSelectors;
 
@@ -69,7 +87,7 @@ namespace Rewarder.Collections {
             }
 
             public T Current {
-                get { return _current; }
+                get { return _base.Current; }
             }
 
             public void Dispose() {
@@ -77,34 +95,20 @@ namespace Rewarder.Collections {
             }
 
             object System.Collections.IEnumerator.Current {
-                get { return _current; }
+                get { return _base.Current; }
             }
 
             public bool MoveNext() {
                 while (_base.MoveNext()) {
-                    foreach (var sel_or in _OrSelectors) {
-                        if (sel_or.isOk(_base.Current)) {
-                            _current = _base.Current;
-
-                            var and_flag = true;
-                            foreach (var sel_and in _AndSelectors) {
-                                and_flag &= sel_and.isOk(_base.Current);
-                                if (!and_flag) {
-                                    break;
-                                }
-                            }
-
-                            if (and_flag == true) {
-                                return true;
-                            }
-                        }
+                    if (inResult(_OrSelectors, _AndSelectors, _base.Current)) {
+                        return true;
                     }
                 }
                 return false;
             }
 
             public void Reset() {
-                _base.Reset();
+                _base.Reset();                
             }
         }
     }

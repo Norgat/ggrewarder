@@ -32,9 +32,8 @@ namespace Rewarder {
 
         #region Black list
         private ObservableCollection<User> _blackList = new ObservableCollection<User>();
-        private FilteredList<User> _BlackListFilter;
         public INotifyCollectionChanged BlackList {
-            get { return _BlackListFilter; }
+            get { return _blackList; }
         }
 
         public void AddToBlackList(User user) {
@@ -46,8 +45,17 @@ namespace Rewarder {
         }
 
         public void DeleteFromBlackList(User user) {
-            var deletedUser = _blackList.Single(U => U.id == user.id);
-            _blackList.Remove(deletedUser);
+            int indx = -1;
+            for (int i = 0; i < _blackList.Count; i++) {
+                if (_blackList[i].id == user.id) {
+                    indx = i;
+                    break;
+                }
+            }
+
+            if (indx != -1) {
+                _blackList.RemoveAt(indx);
+            }
         } 
         #endregion
 
@@ -66,15 +74,12 @@ namespace Rewarder {
             _users = new ObservableCollection<User>();
             _messages = new ObservableCollection<Message>();
 
-            // Группа пользователей для отбора для розыгрыша
-            _whiteList = new FilteredList<User>(_users);
-            _whiteList.AddOrSelector(new Selectors.PremiumSelector());
-
             // Чёрный список
             _blackList.CollectionChanged +=_blackList_CollectionChanged;
-            _BlackListFilter = new FilteredList<User>(_blackList);
 
-            // Выкидываем людей состоящих в чёрном списке из белого спика
+            // Группа пользователей для отбора для розыгрыша
+            _whiteList = new FilteredList<User>(_users);
+            _whiteList.AddOrSelector(new Selectors.PremiumSelector());            
             _whiteList.Observe(_blackList);
             _whiteList.AddAndSelector(new Selectors.BlackListDeselector(_blackList));
 
@@ -84,7 +89,8 @@ namespace Rewarder {
             _ForRandom.Observe(_whiteList);
             _ForRandom.AddOrSelector(new Selectors.BlackListDeselector(_blackList)); 
             #endregion
-            
+
+
             _gg = new GG();
             #region GG API Callbacks
             _gg.OnGetWelcome += (sender, welcome) => {

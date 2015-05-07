@@ -54,7 +54,7 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <ListView Name="blackUsersListView" AllowDrop="True"  Drop="blackUsersListView_Drop" MinHeight="400" Background="LightBlue" Grid.Column="2" Grid.Row="1">
+            <ListView Name="blackUsersListView" AllowDrop="True"  Drop="blackUsersListView_Drop" MinHeight="400" Background="LightBlue" Grid.Column="2" Grid.Row="1" KeyDown="TextBlock_KeyDown">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Path=name}"></TextBlock>
