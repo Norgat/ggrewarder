@@ -29,6 +29,25 @@
                 <ColumnDefinition Width="120"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"></ColumnDefinition>
+                    <ColumnDefinition Width="120"></ColumnDefinition>
+                    <ColumnDefinition Width="120"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="1">
+                    <Button Margin="2">Не премиум</Button>
+                    <Button Margin="2">Премиум</Button>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2">
+                    <Button Margin="2">Не премиум</Button>
+                    <Button Margin="2">Премиум</Button>
+                </StackPanel>
+            </Grid>
+            
             <StackPanel Grid.Row="0" Grid.Column="1" Margin="0 20 0 0">
                 <Button Width="100" Margin="2" Background="LightGreen" Click="Button_Raward">Разыграть</Button>
                 <Button Width="100" Margin="2 10 2 2" Background="LightPink" Click="Button_ClearRewardList">Очистить</Button>
@@ -37,11 +56,11 @@
         
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"></ColumnDefinition>
-                <ColumnDefinition Width="100"></ColumnDefinition>
-                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="120"></ColumnDefinition>
+                <ColumnDefinition Width="120"></ColumnDefinition>
+                <ColumnDefinition Width="120"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="120"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>

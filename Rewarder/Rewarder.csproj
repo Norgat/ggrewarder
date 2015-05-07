@@ -55,6 +55,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Selectors\BlackListDeselector.cs" />
+    <Compile Include="Selectors\NotPremiumSelector.cs" />
     <Compile Include="Selectors\PremiumSelector.cs" />
     <Compile Include="Selectors\WhiteListSelector.cs" />
     <Page Include="MainWindow.xaml">
