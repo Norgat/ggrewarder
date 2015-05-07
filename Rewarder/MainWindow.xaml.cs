@@ -31,6 +31,11 @@ namespace Rewarder {
         private void Button_Connect(object sender, RoutedEventArgs e) {
             var streamer = StreamerNameInput.Text;
 
+            if (streamer == "") {
+                MessageBox.Show("Введите имя стримера");
+                return;
+            }
+
             try {
                 var id = GG.GetChannelId(streamer);
 
@@ -103,6 +108,20 @@ namespace Rewarder {
                     _manager.DeleteFromBlackList(user);
                 }
             }
+        }
+
+        private void Button_Raward(object sender, RoutedEventArgs e) {
+            var randomSeq = (IEnumerable<User>)_manager.ForRandom;
+            var rList = randomSeq.ToList();
+
+            var rand = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+            var lucky = rand.Next(rList.Count);
+
+            MessageBox.Show(rList[lucky].name);
+        }
+
+        private void Button_ClearRewardList(object sender, RoutedEventArgs e) {
+
         }
     }
 }
