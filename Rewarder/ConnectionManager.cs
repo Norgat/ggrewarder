@@ -87,7 +87,8 @@ namespace Rewarder {
             _ForRandom = new FilteredList<User>(_forRandom);
             _ForRandom.Observe(_blackList);
             _ForRandom.Observe(_whiteList);
-            _ForRandom.AddOrSelector(new Selectors.BlackListDeselector(_blackList)); 
+            _ForRandom.AddOrSelector(new Selectors.BlackListDeselector(_blackList));
+            _ForRandom.AddAndSelector(new Selectors.WhiteListSelector(_whiteList));
             #endregion
 
 

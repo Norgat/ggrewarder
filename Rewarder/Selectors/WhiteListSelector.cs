@@ -9,9 +9,9 @@ using GGConnector.GGObjects;
 namespace Rewarder.Selectors {
     public class WhiteListSelector: IElementSelector<User> {
 
-        protected ICollection<User> _white;
+        protected IEnumerable<User> _white;
 
-        public WhiteListSelector(ICollection<User> whiteList) {
+        public WhiteListSelector(IEnumerable<User> whiteList) {
             _white = whiteList;
         }
 
