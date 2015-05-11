@@ -13,11 +13,28 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using GGConnector.GGObjects;
+using Rewarder.Collections;
+using Rewarder.Selectors;
+
 namespace Rewarder.Controls {
     /// <summary>
     /// Interaction logic for ColorButton.xaml
     /// </summary>
     public partial class ColorButton: UserControl {
+
+        private IElementSelector<User> _selector = null;
+        public IElementSelector<User> Selector {
+            get { return _selector; }
+            set { _selector = value; }
+        }
+
+        private FilteredList<User> _list = null;
+        public FilteredList<User> UserList {
+            get { return _list; }
+            set { _list = value; }
+        }
+        
 
         private int _state = 0;
 

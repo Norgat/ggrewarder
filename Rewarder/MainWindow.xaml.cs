@@ -16,6 +16,9 @@ using System.Windows.Shapes;
 using GGConnector;
 using GGConnector.GGObjects;
 
+using Rewarder.Selectors;
+using Rewarder.Collections;
+
 namespace Rewarder {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -26,6 +29,15 @@ namespace Rewarder {
 
         public MainWindow() {
             InitializeComponent();
+
+            cb_pem.Selector = new PremiumSelector();
+            cb_nonpem.Selector = new NotPremiumSelector();
+            cb_donat0.Selector = new Donat0Selector();
+            cb_donat1.Selector = new Donat1Selector();
+            cb_donat2.Selector = new Donat2Selector();
+            cb_donat3.Selector = new Donat3Selector();
+            cb_donat4.Selector = new Donat4Selector();
+            cb_donat5.Selector = new Donat5Selector();
         }
 
         private void Button_Connect(object sender, RoutedEventArgs e) {
@@ -68,6 +80,15 @@ namespace Rewarder {
                 var forRandomBind = new Binding();
                 forRandomBind.Source = _manager.ForRandom;
                 forRandowUsersListView.SetBinding(ListView.ItemsSourceProperty, forRandomBind);
+
+                cb_pem.UserList = (FilteredList<User>) _manager.WhiteList;
+                cb_nonpem.UserList = (FilteredList<User>)_manager.WhiteList;
+                cb_donat0.UserList = (FilteredList<User>)_manager.WhiteList;
+                cb_donat1.UserList = (FilteredList<User>)_manager.WhiteList;
+                cb_donat2.UserList = (FilteredList<User>)_manager.WhiteList;
+                cb_donat3.UserList = (FilteredList<User>)_manager.WhiteList;
+                cb_donat4.UserList = (FilteredList<User>)_manager.WhiteList;
+                cb_donat5.UserList = (FilteredList<User>)_manager.WhiteList;
 
             } catch (Exception) {
                 MessageBox.Show("Что-то пошло не так.");                

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using GGConnector.GGObjects;
 
 namespace Rewarder.Selectors {
-    public class Dotan2Selector: IElementSelector<User> {
+    public class Donat2Selector: IElementSelector<User> {
         public bool isOk(User element) {
             return (element.payments >= 300) && (element.payments < 500);
         }
