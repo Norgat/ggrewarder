@@ -34,7 +34,18 @@ namespace GGConnector.GGObjects {
         public bool premium { get; set; }
 
         [DataMember(Name = "payments")]
-        public string payments { get; set; }
+        private string _payments { get; set; }
+
+        public int payments {
+            get {
+                int res = 0;
+                if (Int32.TryParse(_payments, out res)) {
+                    return res;
+                } else {
+                    return 0;
+                }
+            }
+        }
 
         [DataMember(Name = "mobile")]
         public string mobile { get; set; }

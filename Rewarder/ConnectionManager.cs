@@ -32,6 +32,7 @@ namespace Rewarder {
 
         #region Black list
         private ObservableCollection<User> _blackList = new ObservableCollection<User>();
+        private HashSet<IElementSelector<User>> _blackListSelectors = new HashSet<IElementSelector<User>>();
         public INotifyCollectionChanged BlackList {
             get { return _blackList; }
         }
@@ -55,6 +56,31 @@ namespace Rewarder {
 
             if (indx != -1) {
                 _blackList.RemoveAt(indx);
+            }
+        }
+
+        public void DeleteFromBlackList(IElementSelector<User> sel) {
+            if (_blackListSelectors.Contains(sel)) {
+                _blackListSelectors.Remove(sel);
+
+                var remItems = new List<User>();
+                foreach (var item in _blackList) {
+                    var flag = false;
+                    foreach (var s in _blackListSelectors) {
+                        if (s.isOk(item)) {
+                            flag = true;
+                            break;
+                        }
+                    }
+
+                    if (!flag) {
+                        remItems.Add(item);
+                    }
+                }
+
+                foreach (var rem in remItems) {
+                    _blackList.Remove(rem);
+                }
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿<Window x:Class="Rewarder.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:us="clr-namespace:Rewarder.Controls"
         Title="GoodGame Rewarder" Height="650" Width="925">
     <StackPanel>       
         <Grid>
@@ -30,21 +31,15 @@
             </Grid.ColumnDefinitions>
             
             <Grid Grid.Column="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120"></ColumnDefinition>
-                    <ColumnDefinition Width="120"></ColumnDefinition>
-                    <ColumnDefinition Width="120"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-
-                <StackPanel Grid.Column="1">
-                    <Button Margin="2" Click="Button_Click_NotPremium_White">Не премиум</Button>
-                    <Button Margin="2" Click="Button_Click_Premium_White">Премиум</Button>
-                </StackPanel>
-
-                <StackPanel Grid.Column="2">
-                    <Button Margin="2">Не премиум</Button>
-                    <Button Margin="2">Премиум</Button>
+                <StackPanel Orientation="Horizontal">                
+                    <us:ColorButton x:Name="cb_nonpem" Width="75" Height="30" Margin="20 0 0 0" Text="Non Pem"></us:ColorButton>
+                    <us:ColorButton x:Name="cb_pem" Width="75" Height="30" Margin="20 0 0 0" Text="Prem"></us:ColorButton>
+                    <us:ColorButton x:Name="cb_donat0" Width="75" Height="30" Margin="20 0 0 0" Text="Donat 0"></us:ColorButton>
+                    <us:ColorButton x:Name="cb_donat1" Width="75" Height="30" Margin="20 0 0 0" Text="Donat 2"></us:ColorButton>
+                    <us:ColorButton x:Name="cb_donat2" Width="75" Height="30" Margin="20 0 0 0" Text="Donat 3"></us:ColorButton>
+                    <us:ColorButton x:Name="cb_donat3" Width="75" Height="30" Margin="20 0 0 0" Text="Donat 4"></us:ColorButton>
+                    <us:ColorButton x:Name="cb_donat4" Width="75" Height="30" Margin="20 0 0 0" Text="Donat 5"></us:ColorButton>
+                    <us:ColorButton x:Name="cb_donat5" Width="75" Height="30" Margin="20 0 0 0" Text="Donat 5"></us:ColorButton>
                 </StackPanel>
             </Grid>
             
