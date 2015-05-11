@@ -11,41 +11,41 @@ namespace Rewarder.Collections {
 
         private ObservableCollection<T> _source;
 
-        private HashSet<IElementSelector<T>> _OrSelectors = new HashSet<IElementSelector<T>>();
-        private HashSet<IElementSelector<T>> _AndSelectors = new HashSet<IElementSelector<T>>();
+        private HashSet<IElementSelector<T>> _Selectors = new HashSet<IElementSelector<T>>();
+        private HashSet<IElementSelector<T>> _Deselectors = new HashSet<IElementSelector<T>>();
 
         #region Add and Remove selectors
-        public void AddOrSelector(IElementSelector<T> sel) {
-            _OrSelectors.Add(sel);
+        public void AddSelector(IElementSelector<T> sel) {
+            _Selectors.Add(sel);
             if (CollectionChanged != null) {
                 CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
             }
         }
 
-        public void AddAndSelector(IElementSelector<T> sel) {
-            _AndSelectors.Add(sel);
+        public void AddDeselector(IElementSelector<T> sel) {
+            _Deselectors.Add(sel);
             if (CollectionChanged != null) {
                 CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
             }
         }
 
         public bool isOrContained(IElementSelector<T> sel) {
-            return _OrSelectors.Contains(sel);
+            return _Selectors.Contains(sel);
         }
 
         public bool isAndContaied(IElementSelector<T> sel) {
-            return _AndSelectors.Contains(sel);
+            return _Deselectors.Contains(sel);
         }
 
         public void RemoveOrSelector(IElementSelector<T> sel) {
-            _OrSelectors.Remove(sel);
+            _Selectors.Remove(sel);
             if (CollectionChanged != null) {
                 CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
             }
         }
 
         public void RemoveAndSelector(IElementSelector<T> sel) {
-            _AndSelectors.Remove(sel);
+            _Deselectors.Remove(sel);
             if (CollectionChanged != null) {
                 CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
             }
@@ -71,28 +71,23 @@ namespace Rewarder.Collections {
         }
 
         public IEnumerator<T> GetEnumerator() {
-            return new FilteredListEnumerator(_source.GetEnumerator(), _OrSelectors, _AndSelectors);
+            return new FilteredListEnumerator(_source.GetEnumerator(), _Selectors, _Deselectors);
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
-            return new FilteredListEnumerator(_source.GetEnumerator(), _OrSelectors, _AndSelectors);
+            return new FilteredListEnumerator(_source.GetEnumerator(), _Selectors, _Deselectors);
         }
 
-        public static bool inResult(IEnumerable<IElementSelector<T>> _OrSelectors, IEnumerable<IElementSelector<T>> _AndSelectors, T elem) {
-            foreach (var sel_or in _OrSelectors) {
-                if (sel_or.isOk(elem)) {
+        public static bool inResult(IEnumerable<IElementSelector<T>> _Selectors, IEnumerable<IElementSelector<T>> _Deselectors, T elem) {
+            foreach (var deselector in _Deselectors) {
+                if (deselector.isOk(elem)) {
+                    return false;
+                }
+            }
 
-                    var and_flag = true;
-                    foreach (var sel_and in _AndSelectors) {
-                        and_flag &= sel_and.isOk(elem);
-                        if (!and_flag) {
-                            break;
-                        }
-                    }
-
-                    if (and_flag == true) {
-                        return true;
-                    }
+            foreach (var selector in _Selectors) {
+                if (selector.isOk(elem)) {
+                    return true;
                 }
             }
 
@@ -101,13 +96,13 @@ namespace Rewarder.Collections {
 
         private class FilteredListEnumerator: IEnumerator<T> {
             private IEnumerator<T> _base;
-            private IEnumerable<IElementSelector<T>> _OrSelectors;
-            private IEnumerable<IElementSelector<T>> _AndSelectors;
+            private IEnumerable<IElementSelector<T>> _selectors;
+            private IEnumerable<IElementSelector<T>> _deselectors;
 
-            public FilteredListEnumerator(IEnumerator<T> baseEnumerator, IEnumerable<IElementSelector<T>> orSelectors, IEnumerable<IElementSelector<T>> AndSelectors) {
+            public FilteredListEnumerator(IEnumerator<T> baseEnumerator, IEnumerable<IElementSelector<T>> selectors, IEnumerable<IElementSelector<T>> deselectors) {
                 _base = baseEnumerator;
-                _OrSelectors = orSelectors;
-                _AndSelectors = AndSelectors;
+                _selectors = selectors;
+                _deselectors = deselectors;
             }
 
             public T Current {
@@ -124,7 +119,7 @@ namespace Rewarder.Collections {
 
             public bool MoveNext() {
                 while (_base.MoveNext()) {
-                    if (inResult(_OrSelectors, _AndSelectors, _base.Current)) {
+                    if (inResult(_selectors, _deselectors, _base.Current)) {
                         return true;
                     }
                 }

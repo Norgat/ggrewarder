@@ -71,10 +71,10 @@ namespace Rewarder {
                 premiumBind.Source = _manager.WhiteList;
                 whiteUsersListView.SetBinding(ListView.ItemsSourceProperty, premiumBind);
 
-                BindingOperations.ClearBinding(blackUsersListView, ListView.ItemsSourceProperty);
-                var blackListBind = new Binding();
-                blackListBind.Source = _manager.BlackList;
-                blackUsersListView.SetBinding(ListView.ItemsSourceProperty, blackListBind);
+                //BindingOperations.ClearBinding(blackUsersListView, ListView.ItemsSourceProperty);
+                //var blackListBind = new Binding();
+                //blackListBind.Source = _manager.BlackList;
+                //blackUsersListView.SetBinding(ListView.ItemsSourceProperty, blackListBind);
 
                 BindingOperations.ClearBinding(forRandowUsersListView, ListView.ItemsSourceProperty);
                 var forRandomBind = new Binding();
@@ -163,7 +163,7 @@ namespace Rewarder {
                 if (fl.isOrContained(sel)) {
                     fl.RemoveOrSelector(sel);
                 } else {
-                    fl.AddOrSelector(sel);
+                    fl.AddSelector(sel);
                 }
             }
         }
@@ -176,7 +176,7 @@ namespace Rewarder {
                 if (fl.isOrContained(sel)) {
                     fl.RemoveOrSelector(sel);
                 } else {
-                    fl.AddOrSelector(sel);
+                    fl.AddSelector(sel);
                 }
             }
         }

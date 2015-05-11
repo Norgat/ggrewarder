@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 using GGConnector.GGObjects;
 
 namespace Rewarder.Selectors {
-    public class BlackListDeselector: IElementSelector<User> {
+    public class BlackListSelector: IElementSelector<User> {
 
         private ICollection<User> _black;
 
-        public BlackListDeselector(ICollection<User> blackList) {
+        public BlackListSelector(ICollection<User> blackList) {
             _black = blackList;
         }
 
@@ -19,7 +19,7 @@ namespace Rewarder.Selectors {
             if (_black == null) {
                 return true;
             }
-            return !_black.Any(U => U.id == element.id);
+            return _black.Any(U => U.id == element.id);
         }
 
         public int CompareTo(IElementSelector<User> other) {
