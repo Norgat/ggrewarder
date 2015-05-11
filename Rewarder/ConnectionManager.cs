@@ -106,14 +106,13 @@ namespace Rewarder {
             // Группа пользователей для отбора для розыгрыша
             _whiteList = new FilteredList<User>(_users); 
             _whiteList.Observe(_blackList);
-            _whiteList.AddDeselector(new Selectors.BlackListSelector(_blackList));
-            _whiteList.AddSelector(new Selectors.NotPremiumSelector());
+            //_whiteList.AddDeselector(new Selectors.BlackListSelector(_blackList));
 
             // Составляем список людей для розыгрыша
             _ForRandom = new FilteredList<User>(_forRandom);
             _ForRandom.Observe(_blackList);
             _ForRandom.Observe(_whiteList);
-            _ForRandom.AddDeselector(new Selectors.BlackListSelector(_blackList));
+            //_ForRandom.AddDeselector(new Selectors.BlackListSelector(_blackList));
             _ForRandom.AddSelector(new Selectors.WhiteListSelector(_whiteList));
             #endregion
 

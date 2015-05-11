@@ -26,13 +26,69 @@ namespace Rewarder.Controls {
         private IElementSelector<User> _selector = null;
         public IElementSelector<User> Selector {
             get { return _selector; }
-            set { _selector = value; }
+            set {
+                RemoveListSelector(); // вызываем отдельно для того, чтобы почистить коллекцию от старого селектора
+                _selector = value;
+                UpdateState(_state);
+            }
         }
 
         private FilteredList<User> _list = null;
         public FilteredList<User> UserList {
             get { return _list; }
-            set { _list = value; }
+            set {
+                RemoveListSelector();
+                _list = value;
+                UpdateState(_state);
+            }
+        }
+
+        private void UpdateState(int new_state) {
+            // Проверка на равенство состояний не проводится с той целью, чтобы можно было обновить селектор/коллекцию и обновить стейт этой коллекции
+            if (UserList != null) {
+                RemoveListSelector();
+                AddListSelector(new_state);
+            }
+
+            _state = new_state;
+        }
+
+        private void AddListSelector(int new_state) {
+            switch (new_state) {
+                case 1:
+                    if (_selector != null) {
+                        UserList.AddSelector(_selector);
+                    }
+                    break;
+
+                case 2:
+                    if (_selector != null) {
+                        UserList.AddDeselector(_selector);
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void RemoveListSelector() {
+            switch (_state) {
+                case 1:
+                    if (_selector != null) {
+                        UserList.RemoveSelector(_selector);
+                    }
+                    break;
+
+                case 2:
+                    if (_selector != null) {
+                        UserList.RemoveDeselector(_selector);
+                    }
+                    break;
+
+                default:
+                    break;
+            }
         }
         
 
@@ -59,9 +115,9 @@ namespace Rewarder.Controls {
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e) {
-            _state = (_state + 1) % 3;
+            var new_state = (_state + 1) % 3;
 
-            switch (_state) {
+            switch (new_state) {
                 case 0:
                     BColor = Brushes.DarkGray;
                     break;
@@ -74,6 +130,8 @@ namespace Rewarder.Controls {
                 default:
                     break;
             }
+
+            UpdateState(new_state);
         }
 
         public static DependencyProperty TextProperty =

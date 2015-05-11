@@ -29,22 +29,22 @@ namespace Rewarder.Collections {
             }
         }
 
-        public bool isOrContained(IElementSelector<T> sel) {
+        public bool isSelectorContained(IElementSelector<T> sel) {
             return _Selectors.Contains(sel);
         }
 
-        public bool isAndContaied(IElementSelector<T> sel) {
+        public bool isDeselectorContaied(IElementSelector<T> sel) {
             return _Deselectors.Contains(sel);
         }
 
-        public void RemoveOrSelector(IElementSelector<T> sel) {
+        public void RemoveSelector(IElementSelector<T> sel) {
             _Selectors.Remove(sel);
             if (CollectionChanged != null) {
                 CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
             }
         }
 
-        public void RemoveAndSelector(IElementSelector<T> sel) {
+        public void RemoveDeselector(IElementSelector<T> sel) {
             _Deselectors.Remove(sel);
             if (CollectionChanged != null) {
                 CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));

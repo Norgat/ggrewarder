@@ -160,8 +160,8 @@ namespace Rewarder {
                 var sel = new Selectors.NotPremiumSelector();
                 var fl = (Rewarder.Collections.FilteredList<User>)_manager.WhiteList;
 
-                if (fl.isOrContained(sel)) {
-                    fl.RemoveOrSelector(sel);
+                if (fl.isSelectorContained(sel)) {
+                    fl.RemoveSelector(sel);
                 } else {
                     fl.AddSelector(sel);
                 }
@@ -173,8 +173,8 @@ namespace Rewarder {
                 var sel = new Selectors.PremiumSelector();
                 var fl = (Rewarder.Collections.FilteredList<User>)_manager.WhiteList;
 
-                if (fl.isOrContained(sel)) {
-                    fl.RemoveOrSelector(sel);
+                if (fl.isSelectorContained(sel)) {
+                    fl.RemoveSelector(sel);
                 } else {
                     fl.AddSelector(sel);
                 }
