@@ -58,6 +58,12 @@
       <DependentUpon>ColorButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Selectors\BlackListDeselector.cs" />
+    <Compile Include="Selectors\Donat1Selector.cs" />
+    <Compile Include="Selectors\Donat2Selector.cs" />
+    <Compile Include="Selectors\Donat3Selector.cs" />
+    <Compile Include="Selectors\Donat4Selector.cs" />
+    <Compile Include="Selectors\Donat5Selector.cs" />
+    <Compile Include="Selectors\Dotan0Selector.cs" />
     <Compile Include="Selectors\NotPremiumSelector.cs" />
     <Compile Include="Selectors\PremiumSelector.cs" />
     <Compile Include="Selectors\Single.cs" />
