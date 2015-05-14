@@ -19,6 +19,8 @@ using GGConnector.GGObjects;
 using Rewarder.Selectors;
 using Rewarder.Collections;
 
+using System.Collections.ObjectModel;
+
 namespace Rewarder {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -26,6 +28,8 @@ namespace Rewarder {
     public partial class MainWindow: Window {
 
         private ConnectionManager _manager = null;
+
+        private ObservableCollection<HistoryRecord> _history = new ObservableCollection<HistoryRecord>();
 
         public MainWindow() {
             InitializeComponent();
@@ -38,6 +42,10 @@ namespace Rewarder {
             cb_donat3.Selector = new Donat3Selector();
             cb_donat4.Selector = new Donat4Selector();
             cb_donat5.Selector = new Donat5Selector();
+
+            var historyBind = new Binding();
+            historyBind.Source = _history;
+            History.SetBinding(ListView.ItemsSourceProperty, historyBind);
         }
 
         private void Button_Connect(object sender, RoutedEventArgs e) {
@@ -147,6 +155,11 @@ namespace Rewarder {
 
             var rand = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
             var lucky = rand.Next(rList.Count);
+
+
+            var record = new HistoryRecord { Time = DateTime.Now, Name = rList[lucky].name };
+            _history.Add(record);
+            
 
             MessageBox.Show(rList[lucky].name);
         }

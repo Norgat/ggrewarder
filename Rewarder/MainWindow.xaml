@@ -80,7 +80,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <Image Width="20" Height="20" Source="/Images/gg-1.png"></Image>
+                            <Image Width="20" Height="20"> </Image>
                             <TextBlock Text="{Binding Path=name}" MouseDown="TextBlock_To_BlackList"></TextBlock>
                         </StackPanel>
                     </DataTemplate>
@@ -117,7 +117,24 @@
                     </ListView>
                 </TabItem>
                 
-                <TabItem Header="История результатов" Width="150"></TabItem>
+                <TabItem Header="История результатов" Width="150">
+                    <ListView Name="History">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Column="0" Text="{Binding Path=Time, StringFormat=HH:mm:ss}"></TextBlock>
+                                    <TextBlock Grid.Column="1" Text="{Binding Path=Name}"></TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    
+                </TabItem>
             </TabControl>
             
 

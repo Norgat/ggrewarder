@@ -57,6 +57,7 @@
     <Compile Include="Controls\ColorButton.xaml.cs">
       <DependentUpon>ColorButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HistoryRecord.cs" />
     <Compile Include="Selectors\BlackListDeselector.cs" />
     <Compile Include="Selectors\Donat1Selector.cs" />
     <Compile Include="Selectors\Donat2Selector.cs" />
