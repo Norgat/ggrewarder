@@ -194,5 +194,15 @@ namespace Rewarder {
             }
         }
 
+        private void Grid_KeyDown(object sender, KeyEventArgs e) {
+            var mods = (Keyboard.Modifiers & ModifierKeys.Control);
+            if ((e.Key == Key.C) 
+                && (mods == ModifierKeys.Control)) {
+                var lw = (ListView)sender;
+                var record = (HistoryRecord)lw.SelectedItem;
+                Clipboard.SetText(record.Name);
+            }
+        }
+
     }
 }

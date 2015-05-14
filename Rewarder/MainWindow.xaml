@@ -118,7 +118,7 @@
                 </TabItem>
                 
                 <TabItem Header="История результатов" Width="150">
-                    <ListView Name="History">
+                    <ListView Name="History" KeyDown="Grid_KeyDown">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
