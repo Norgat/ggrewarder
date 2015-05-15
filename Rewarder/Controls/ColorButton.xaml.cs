@@ -56,13 +56,13 @@ namespace Rewarder.Controls {
         private void AddListSelector(int new_state) {
             switch (new_state) {
                 case 1:
-                    if (_selector != null) {
+                    if (_selector != null && UserList != null) {
                         UserList.AddSelector(_selector);
                     }
                     break;
 
                 case 2:
-                    if (_selector != null) {
+                    if (_selector != null && UserList != null) {
                         UserList.AddDeselector(_selector);
                     }
                     break;
