@@ -75,13 +75,13 @@ namespace Rewarder.Controls {
         private void RemoveListSelector() {
             switch (_state) {
                 case 1:
-                    if (_selector != null) {
+                    if (_selector != null && UserList != null) {
                         UserList.RemoveSelector(_selector);
                     }
                     break;
 
                 case 2:
-                    if (_selector != null) {
+                    if (_selector != null && UserList != null) {
                         UserList.RemoveDeselector(_selector);
                     }
                     break;
