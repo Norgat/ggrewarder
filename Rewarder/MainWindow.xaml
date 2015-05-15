@@ -38,14 +38,14 @@
             
             <Grid Grid.Column="0">
                 <StackPanel Orientation="Horizontal">                
-                    <us:ColorButton x:Name="cb_nonpem" Width="50" Height="50" Margin="20 0 0 0" Text="Non Pem"></us:ColorButton>
-                    <us:ColorButton x:Name="cb_pem" Width="50" Height="50" Margin="20 0 0 0" Text="Prem"></us:ColorButton>
-                    <us:ColorButton x:Name="cb_donat0" Width="50" Height="50" Margin="20 0 0 0" Text="Donat 0"></us:ColorButton>
-                    <us:ColorButton x:Name="cb_donat1" Width="50" Height="50" Margin="20 0 0 0" Text="Donat 2"></us:ColorButton>
-                    <us:ColorButton x:Name="cb_donat2" Width="50" Height="50" Margin="20 0 0 0" Text="Donat 3"></us:ColorButton>
-                    <us:ColorButton x:Name="cb_donat3" Width="50" Height="50" Margin="20 0 0 0" Text="Donat 4"></us:ColorButton>
-                    <us:ColorButton x:Name="cb_donat4" Width="50" Height="50" Margin="20 0 0 0" Text="Donat 5"></us:ColorButton>
-                    <us:ColorButton x:Name="cb_donat5" Width="50" Height="50" Margin="20 0 0 0" Text="Donat 5"></us:ColorButton>
+                    <us:ColorButton x:Name="cb_nonpem" Width="50" Height="50" Margin="20 0 0 0" Text="NP"></us:ColorButton>
+                    <us:ColorButton x:Name="cb_pem" Width="50" Height="50" Margin="20 0 0 0" Text="Pr"></us:ColorButton>
+                    <us:ColorButton x:Name="cb_donat0" Width="50" Height="50" Margin="20 0 0 0" Text="D0"></us:ColorButton>
+                    <us:ColorButton x:Name="cb_donat1" Width="50" Height="50" Margin="20 0 0 0" Text="D1"></us:ColorButton>
+                    <us:ColorButton x:Name="cb_donat2" Width="50" Height="50" Margin="20 0 0 0" Text="D2"></us:ColorButton>
+                    <us:ColorButton x:Name="cb_donat3" Width="50" Height="50" Margin="20 0 0 0" Text="D3"></us:ColorButton>
+                    <us:ColorButton x:Name="cb_donat4" Width="50" Height="50" Margin="20 0 0 0" Text="D4"></us:ColorButton>
+                    <us:ColorButton x:Name="cb_donat5" Width="50" Height="50" Margin="20 0 0 0" Text="D5"></us:ColorButton>
                 </StackPanel>
             </Grid>
             

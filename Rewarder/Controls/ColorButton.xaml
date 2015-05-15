@@ -8,7 +8,7 @@
              d:DesignHeight="60" d:DesignWidth="60">
         <Grid MouseDown="Grid_MouseDown">
             <Border BorderThickness="5" BorderBrush="{Binding Path=BColor}" CornerRadius="22">
-            <TextBlock Text="{Binding Path=Text}" />
+            <TextBlock FontSize="25" Margin="5 2 0 0" Text="{Binding Path=Text}" />
         </Border>
         </Grid>
 </UserControl>
