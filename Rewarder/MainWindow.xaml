@@ -51,7 +51,7 @@
             
             <StackPanel Grid.Row="0" Grid.Column="1" Margin="0 20 0 0">
                 <Button Width="100" Margin="2" Background="LightGreen" Click="Button_Raward">Разыграть</Button>
-                <Button Width="100" Margin="2 10 2 2" Background="LightPink" Click="Button_ClearRewardList">Очистить</Button>
+                <!--<Button Width="100" Margin="2 10 2 2" Background="LightPink" Click="Button_ClearRewardList">Очистить</Button>-->
             </StackPanel>
         </Grid>
         

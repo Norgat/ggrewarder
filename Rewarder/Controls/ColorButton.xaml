@@ -6,9 +6,9 @@
              mc:Ignorable="d" 
              Name="CButton"
              d:DesignHeight="60" d:DesignWidth="60">
-        <Grid MouseDown="Grid_MouseDown">
+        <Grid MouseDown="Grid_MouseDown" Background="{Binding Path=BGColor}">
             <Border BorderThickness="5" BorderBrush="{Binding Path=BColor}" CornerRadius="22">
-            <TextBlock FontSize="25" Margin="5 2 0 0" Text="{Binding Path=Text}" />
-        </Border>
+                <TextBlock FontSize="25" Margin="5 2 0 0" Text="{Binding Path=Text}" />                
+            </Border>
         </Grid>
 </UserControl>
