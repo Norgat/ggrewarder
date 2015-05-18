@@ -50,6 +50,7 @@
             </Grid>
             
             <StackPanel Grid.Row="0" Grid.Column="1" Margin="0 20 0 0">
+                
                 <Button Width="100" Margin="2" Background="LightGreen" Click="Button_Raward">Разыграть</Button>
                 <!--<Button Width="100" Margin="2 10 2 2" Background="LightPink" Click="Button_ClearRewardList">Очистить</Button>-->
             </StackPanel>
@@ -128,10 +129,15 @@
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Grid.Column="0" Text="{Binding Path=Time, StringFormat=HH:mm:ss}"></TextBlock>
-                                    <TextBlock Grid.Column="1" Text="{Binding Path=Name}"></TextBlock>
+                                    <TextBlock Grid.Column="1" Text="{Binding Path=Name}"></TextBlock>                                    
                                 </Grid>
-                            </DataTemplate>
+                            </DataTemplate>                            
                         </ListView.ItemTemplate>
+                        <ListView.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Копировать Ctrl + C" Click="MenuItem_Click"></MenuItem>
+                            </ContextMenu>
+                        </ListView.ContextMenu>
                     </ListView>
                     
                 </TabItem>

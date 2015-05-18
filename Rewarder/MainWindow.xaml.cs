@@ -204,5 +204,11 @@ namespace Rewarder {
             }
         }
 
+        private void MenuItem_Click(object sender, RoutedEventArgs e) {
+            var record = (HistoryRecord)this.History.SelectedItem;
+            if (record != null) {
+                Clipboard.SetText(record.Name);
+            }
+        }
     }
 }
