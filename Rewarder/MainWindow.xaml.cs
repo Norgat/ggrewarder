@@ -45,6 +45,8 @@ namespace Rewarder {
             cb_donat4.Selector = new Donat4Selector();
             cb_donat5.Selector = new Donat5Selector();
 
+            //cb_chat.SelectorType = false;
+
             var historyBind = new Binding();
             historyBind.Source = _history;
             History.SetBinding(ListView.ItemsSourceProperty, historyBind);
@@ -103,6 +105,9 @@ namespace Rewarder {
                 cb_donat3.UserList = (FilteredList<User>)_manager.WhiteList;
                 cb_donat4.UserList = (FilteredList<User>)_manager.WhiteList;
                 cb_donat5.UserList = (FilteredList<User>)_manager.WhiteList;
+
+                //cb_chat.Selector = new InChatDeselector((IEnumerable<User>)_manager.ChatActive);
+                //cb_chat.UserList = (FilteredList<User>)_manager.ForRandom;
 
 
                 _userListUpdateTimer = new Timer();
@@ -226,6 +231,20 @@ namespace Rewarder {
             var record = (HistoryRecord)this.History.SelectedItem;
             if (record != null) {
                 Clipboard.SetText(record.Name);
+            }
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e) {
+            if (_manager != null) {
+                var sel = new InChatDeselector(_manager.ChatActive);
+                ((FilteredList<User>)_manager.ForRandom).AddDeselector(sel);
+            }
+        }
+
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e) {
+            if (_manager != null) {
+                var sel = new InChatDeselector(_manager.ChatActive);
+                ((FilteredList<User>)_manager.ForRandom).RemoveDeselector(sel);
             }
         }
     }

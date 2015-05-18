@@ -27,11 +27,7 @@ namespace Rewarder.Selectors {
         }
 
         public override int GetHashCode() {
-            if (_black != null) {
-                return string.Format("InChatDeselector<User> {0}", _black.GetHashCode()).GetHashCode();
-            } else {
-                return string.Format("InChatDeselector<User>").GetHashCode();
-            }
+            return "InChatDeselector<User>".GetHashCode();
         }
 
         public override bool Equals(object obj) {

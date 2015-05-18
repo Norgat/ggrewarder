@@ -29,11 +29,7 @@ namespace Rewarder.Selectors {
         }
 
         public override int GetHashCode() {
-            if (_white != null) {
-                return string.Format("WhiteListSelector<User> {0}", _white.GetHashCode()).GetHashCode();
-            } else {
-                return string.Format("WhiteListSelector<User>").GetHashCode();
-            }
+            return string.Format("WhiteListSelector<User>").GetHashCode();
         }
 
         public override bool Equals(object obj) {

@@ -23,6 +23,8 @@ namespace Rewarder.Controls {
     /// </summary>
     public partial class ColorButton: UserControl {
 
+        public bool SelectorType { get; set; }
+
         private IElementSelector<User> _selector = null;
         public IElementSelector<User> Selector {
             get { return _selector; }
@@ -57,13 +59,21 @@ namespace Rewarder.Controls {
             switch (new_state) {
                 case 1:
                     if (_selector != null && UserList != null) {
-                        UserList.AddSelector(_selector);
+                        if (SelectorType) {
+                            UserList.AddSelector(_selector);
+                        } else {
+                            UserList.AddDeselector(_selector);
+                        }
                     }
                     break;
 
                 case 2:
                     if (_selector != null && UserList != null) {
-                        UserList.AddDeselector(_selector);
+                        if (!SelectorType) {
+                            UserList.AddSelector(_selector);
+                        } else {
+                            UserList.AddDeselector(_selector);
+                        }
                     }
                     break;
 
@@ -76,13 +86,21 @@ namespace Rewarder.Controls {
             switch (_state) {
                 case 1:
                     if (_selector != null && UserList != null) {
-                        UserList.RemoveSelector(_selector);
+                        if (SelectorType) {
+                            UserList.RemoveSelector(_selector);
+                        } else {
+                            UserList.RemoveDeselector(_selector);
+                        }
                     }
                     break;
 
                 case 2:
                     if (_selector != null && UserList != null) {
-                        UserList.RemoveDeselector(_selector);
+                        if (!SelectorType) {
+                            UserList.RemoveSelector(_selector);
+                        } else {
+                            UserList.RemoveDeselector(_selector);
+                        }
                     }
                     break;
 
@@ -95,11 +113,13 @@ namespace Rewarder.Controls {
         private int _state = 0;
 
         public ColorButton() {
+            SelectorType = true;
             InitializeComponent();
 
             (this.Content as FrameworkElement).DataContext = this;
-            BColor = Brushes.DarkGray;
+            BColor = Brushes.DarkGray;            
         }
+        
 
         public static DependencyProperty BColorProperty =
             DependencyProperty.Register("BColor", typeof(Brush), typeof(ColorButton));

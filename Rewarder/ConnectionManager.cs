@@ -97,11 +97,7 @@ namespace Rewarder {
         }
 
 
-        private ObservableCollection<User> _chatActive = new ObservableCollection<User>();
-        private FilteredList<User> _ChatActive;
-        public INotifyCollectionChanged ChatActive {
-            get { return _ChatActive; }
-        }
+        public ObservableCollection<User> ChatActive { get; set; }
         
         public ConnectionManager(int channel_id) {
             _channelId = channel_id;
@@ -118,14 +114,14 @@ namespace Rewarder {
             _whiteList.Observe(_blackList);
             //_whiteList.AddDeselector(new Selectors.BlackListSelector(_blackList));
 
-            _ChatActive = new FilteredList<User>(_chatActive);
+            ChatActive = new ObservableCollection<User>();
 
             // Составляем список людей для розыгрыша
             _ForRandom = new FilteredList<User>(_users);
             _ForRandom.Observe(_blackList);
             _ForRandom.Observe(_whiteList);
             _ForRandom.AddSelector(new Selectors.WhiteListSelector(_whiteList));
-            _ForRandom.AddDeselector(new Selectors.InChatDeselector(_chatActive));
+            _ForRandom.AddDeselector(new Selectors.InChatDeselector(ChatActive));
             #endregion
 
 
@@ -160,10 +156,11 @@ namespace Rewarder {
                     //    _forRandom.Add(user);
                     //}
 
-                    if (!_chatActive.Any(U => U.id == user.id)) {
-                        _chatActive.Add(user);
+                    if (!ChatActive.Any(U => U.id == user.id)) {
+                        ChatActive.Add(user);
                     }
                 }
+                _whiteList.Updated();
             };
 
             #endregion
