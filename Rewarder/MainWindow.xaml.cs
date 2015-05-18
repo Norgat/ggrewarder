@@ -20,6 +20,7 @@ using Rewarder.Selectors;
 using Rewarder.Collections;
 
 using System.Collections.ObjectModel;
+using System.Timers;
 
 namespace Rewarder {
     /// <summary>
@@ -28,6 +29,7 @@ namespace Rewarder {
     public partial class MainWindow: Window {
 
         private ConnectionManager _manager = null;
+        private Timer _userListUpdateTimer = null;
 
         private ObservableCollection<HistoryRecord> _history = new ObservableCollection<HistoryRecord>();
 
@@ -57,6 +59,10 @@ namespace Rewarder {
             }
 
             try {
+                if (_userListUpdateTimer != null) {
+                    _userListUpdateTimer.Dispose();
+                }
+                
                 var id = GG.GetChannelId(streamer);
 
                 if (_manager != null) { 
@@ -98,8 +104,20 @@ namespace Rewarder {
                 cb_donat4.UserList = (FilteredList<User>)_manager.WhiteList;
                 cb_donat5.UserList = (FilteredList<User>)_manager.WhiteList;
 
+
+                _userListUpdateTimer = new Timer();
+                _userListUpdateTimer.Interval = 5000;
+                _userListUpdateTimer.Elapsed += new ElapsedEventHandler(OnUpdateUserList);
+                _userListUpdateTimer.Enabled = true;
+
             } catch (Exception) {
                 MessageBox.Show("Что-то пошло не так. Найдите последовательность действий, приводящих к этому сообщению и отправьте её на norg113@gmail.com");                
+            }
+        }
+
+        private void OnUpdateUserList(object source, ElapsedEventArgs e) {
+            if (_manager != null) {
+                _manager.UpdateUserList();
             }
         }
 

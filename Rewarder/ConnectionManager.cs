@@ -12,6 +12,7 @@ using Rewarder.Collections;
 
 namespace Rewarder {
     class ConnectionManager: IDisposable {
+        private int _channelId;
         private GG _gg;
 
         private ObservableCollection<User> _users;
@@ -96,6 +97,8 @@ namespace Rewarder {
         }
         
         public ConnectionManager(int channel_id) {
+            _channelId = channel_id;
+
             #region List initializations
             _users = new ObservableCollection<User>();
             _messages = new ObservableCollection<Message>();
@@ -125,8 +128,16 @@ namespace Rewarder {
             };
 
             _gg.OnGetUsersList += (sender, usersList) => {
-                foreach (var u in usersList.users) {
-                    _users.Add(u);
+                if (_users.Count == 0) {
+                    foreach (var u in usersList.users) {
+                        _users.Add(u);
+                    }                    
+                } else {
+                    foreach (var u in usersList.users) {
+                        if (!_users.Contains(u, new UserEqualityComparer())) {
+                            _users.Add(u);
+                        }
+                    }                    
                 }
                 _whiteList.Updated();
             };
@@ -155,6 +166,10 @@ namespace Rewarder {
             if (_gg != null) {
                 _gg.Dispose();
             }
+        }
+
+        public void UpdateUserList() {
+            _gg.GetUsersList(_channelId);
         }
     }
 }

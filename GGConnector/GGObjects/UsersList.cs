@@ -74,4 +74,15 @@ namespace GGConnector.GGObjects {
         [DataMember(Name = "data")]
         public UsersList data { get; set; }
     }
+
+
+    public class UserEqualityComparer: IEqualityComparer<User> {
+        public bool Equals(User x, User y) {
+            return x.id == y.id;
+        }
+
+        public int GetHashCode(User obj) {
+            return obj.id.GetHashCode();
+        }
+    }
 }
