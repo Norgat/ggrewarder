@@ -99,7 +99,7 @@ namespace Rewarder {
                 cb_donat5.UserList = (FilteredList<User>)_manager.WhiteList;
 
             } catch (Exception) {
-                MessageBox.Show("Что-то пошло не так.");                
+                MessageBox.Show("Что-то пошло не так. Найдите последовательность действий, приводящих к этому сообщению и отправьте её на norg113@gmail.com");                
             }
         }
 
