@@ -70,6 +70,7 @@
     <Compile Include="Selectors\PremiumSelector.cs" />
     <Compile Include="Selectors\Single.cs" />
     <Compile Include="Selectors\WhiteListSelector.cs" />
+    <Compile Include="XTimer.cs" />
     <Page Include="Controls\ColorButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

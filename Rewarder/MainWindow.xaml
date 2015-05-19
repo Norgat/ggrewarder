@@ -8,6 +8,7 @@
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="100"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
         </Grid.RowDefinitions>
         
         <Grid Grid.Row="0">
@@ -166,5 +167,27 @@
                 </ListView.ItemTemplate>
             </ListView>
         </Grid>
+        
+        <StatusBar Grid.Row="3">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="120"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>                
+            </StatusBar.ItemsPanel>            
+            
+            <StatusBarItem Grid.Column="0">
+                
+            </StatusBarItem>
+
+            <StatusBarItem Grid.Column="2">
+                <TextBlock Name="xTimerViewBlock" Margin="35 0 0 00" Text="{Binding Path=Time}"/>                                
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </Window>

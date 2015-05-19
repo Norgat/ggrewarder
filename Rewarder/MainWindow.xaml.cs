@@ -21,6 +21,7 @@ using Rewarder.Collections;
 
 using System.Collections.ObjectModel;
 using System.Timers;
+using System.ComponentModel;
 
 namespace Rewarder {
     /// <summary>
@@ -30,6 +31,8 @@ namespace Rewarder {
 
         private ConnectionManager _manager = null;
         private Timer _userListUpdateTimer = null;
+
+        private XTimer _xTimer;
 
         private ObservableCollection<HistoryRecord> _history = new ObservableCollection<HistoryRecord>();
 
@@ -50,6 +53,14 @@ namespace Rewarder {
             var historyBind = new Binding();
             historyBind.Source = _history;
             History.SetBinding(ListView.ItemsSourceProperty, historyBind);
+
+            _xTimer = new XTimer();
+
+            //var timeBind = new Binding();
+            //timeBind.Source = _xTimer.Time;
+            //xTimerViewBlock.SetBinding(TextBlock.TextProperty, timeBind);
+
+            xTimerViewBlock.DataContext = _xTimer;
         }
 
         private void Button_Connect(object sender, RoutedEventArgs e) {
@@ -64,12 +75,16 @@ namespace Rewarder {
                 if (_userListUpdateTimer != null) {
                     _userListUpdateTimer.Dispose();
                 }
+
+                if (_xTimer != null) {
+                    _xTimer.Stop();
+                }
                 
                 var id = GG.GetChannelId(streamer);
 
                 if (_manager != null) { 
                     _manager.Dispose(); 
-                }
+                }                
 
                 _manager = new ConnectionManager(id);
                 BindingOperations.ClearBinding(usersListView, ListView.ItemsSourceProperty);
@@ -115,6 +130,7 @@ namespace Rewarder {
                 _userListUpdateTimer.Elapsed += new ElapsedEventHandler(OnUpdateUserList);
                 _userListUpdateTimer.Enabled = true;
 
+                _xTimer.Start();
             } catch (Exception) {
                 MessageBox.Show("Что-то пошло не так. Найдите последовательность действий, приводящих к этому сообщению и отправьте её на norg113@gmail.com");                
             }
@@ -246,6 +262,6 @@ namespace Rewarder {
                 var sel = new InChatDeselector(_manager.ChatActive);
                 ((FilteredList<User>)_manager.ForRandom).RemoveDeselector(sel);
             }
-        }
+        }        
     }
 }
