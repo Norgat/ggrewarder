@@ -39,14 +39,14 @@
             
             <Grid Grid.Column="0">
                 <StackPanel Orientation="Horizontal">                
-                    <us:ColorButton x:Name="cb_nonpem" Width="50" Height="50" Margin="20 0 0 0" Text="NP"></us:ColorButton>
-                    <us:ColorButton x:Name="cb_pem" Width="50" Height="50" Margin="20 0 0 0" Text="Pr"></us:ColorButton>
-                    <us:ColorButton x:Name="cb_donat0" Width="50" Height="50" Margin="20 0 0 0" Text="D0"></us:ColorButton>
-                    <us:ColorButton x:Name="cb_donat1" Width="50" Height="50" Margin="20 0 0 0" Text="D1"></us:ColorButton>
-                    <us:ColorButton x:Name="cb_donat2" Width="50" Height="50" Margin="20 0 0 0" Text="D2"></us:ColorButton>
-                    <us:ColorButton x:Name="cb_donat3" Width="50" Height="50" Margin="20 0 0 0" Text="D3"></us:ColorButton>
-                    <us:ColorButton x:Name="cb_donat4" Width="50" Height="50" Margin="20 0 0 0" Text="D4"></us:ColorButton>
-                    <us:ColorButton x:Name="cb_donat5" Width="50" Height="50" Margin="20 0 0 0" Text="D5"></us:ColorButton>                    
+                    <us:ColorButton x:Name="cb_nonpem" ToolTip="Не премиум пользователи" Width="50" Height="50" Margin="20 0 0 0" Text="NP"></us:ColorButton>
+                    <us:ColorButton x:Name="cb_pem" ToolTip="Премиум пользователи" Width="50" Height="50" Margin="20 0 0 0" Text="Pr"></us:ColorButton>
+                    <us:ColorButton x:Name="cb_donat0" ToolTip="Донат меньше 100" Width="50" Height="50" Margin="20 0 0 0" Text="D0"></us:ColorButton>
+                    <us:ColorButton x:Name="cb_donat1" ToolTip="Донат от 100 до 300" Width="50" Height="50" Margin="20 0 0 0" Text="D1"></us:ColorButton>
+                    <us:ColorButton x:Name="cb_donat2" ToolTip="Донат от 300 до 500" Width="50" Height="50" Margin="20 0 0 0" Text="D2"></us:ColorButton>
+                    <us:ColorButton x:Name="cb_donat3" ToolTip="Донат от 500 до 3000" Width="50" Height="50" Margin="20 0 0 0" Text="D3"></us:ColorButton>
+                    <us:ColorButton x:Name="cb_donat4" ToolTip="Донат от 3000 до 10000" Width="50" Height="50" Margin="20 0 0 0" Text="D4"></us:ColorButton>
+                    <us:ColorButton x:Name="cb_donat5" ToolTip="Донат больше 10000" Width="50" Height="50" Margin="20 0 0 0" Text="D5"></us:ColorButton>                    
                 </StackPanel>
             </Grid>
 
