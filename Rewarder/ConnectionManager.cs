@@ -181,5 +181,10 @@ namespace Rewarder {
         public void UpdateUserList() {
             _gg.GetUsersList(_channelId);
         }
+
+        public void DropChatActiveList() {
+            ChatActive.Clear();
+            _whiteList.Updated();
+        }
     }
 }

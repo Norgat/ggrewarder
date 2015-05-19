@@ -262,6 +262,14 @@ namespace Rewarder {
                 var sel = new InChatDeselector(_manager.ChatActive);
                 ((FilteredList<User>)_manager.ForRandom).RemoveDeselector(sel);
             }
+        }
+
+        private void Button_DropChatActiveList(object sender, RoutedEventArgs e) {
+            if (_manager != null && _xTimer != null) {
+                _xTimer.Stop();
+                _manager.DropChatActiveList();
+                _xTimer.Restart();
+            }
         }        
     }
 }

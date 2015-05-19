@@ -56,9 +56,22 @@
                     <ColumnDefinition Width="20"></ColumnDefinition>
                     <ColumnDefinition Width="150"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"></RowDefinition>
+                    <RowDefinition Height="24"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
 
-                <CheckBox Grid.Column="0" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" IsChecked="True"></CheckBox>
-                <TextBlock Grid.Column="1">Только активные в чате</TextBlock>
+                <CheckBox Grid.Column="0" Grid.Row="0" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" IsChecked="True"></CheckBox>
+                <TextBlock Grid.Column="1"  Grid.Row="0">Только активные в чате</TextBlock>
+                
+                <Button Grid.Column="1" Grid.Row="1" Margin="2"
+                        Width="100" Height="20" Background="LightCoral" 
+                        ToolTip="Сбросить активных в чате пользователей"
+                        Click="Button_DropChatActiveList">
+                    Сбросить
+                </Button>
             </Grid>
 
             <StackPanel Grid.Row="0" Grid.Column="2" Margin="0 20 0 0">
