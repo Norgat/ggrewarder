@@ -184,6 +184,17 @@ namespace Rewarder {
                 return;
             }
 
+            int count = 0;
+            if (!int.TryParse(UCount.Text, out count)) {
+                MessageBox.Show("Укажите правильное количество пользователей!");
+                return;
+            }
+
+            if (count <= 0) {
+                MessageBox.Show("Укажите правильное количество пользователей!");
+                return;
+            }           
+
             var randomSeq = (IEnumerable<User>)_manager.ForRandom;
             var rList = randomSeq.ToList();
 
@@ -192,15 +203,27 @@ namespace Rewarder {
                 return;
             }
 
+            if (rList.Count <= count) {
+                MessageBox.Show("Слишком мало пользователей. Все выйграли!");
+                return;
+            }
+
             var rand = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-            var lucky = rand.Next(rList.Count);
 
+            var luckyList = new List<int>();
 
-            var record = new HistoryRecord { Time = DateTime.Now, Name = rList[lucky].name };
-            _history.Add(record);
-            
+            while (luckyList.Count != count) {
+                var lucky = rand.Next(rList.Count);
+                if (!luckyList.Contains(lucky)) {
+                    luckyList.Add(lucky);
+                }
+            }
 
-            MessageBox.Show(rList[lucky].name);
+            foreach (var lucky in luckyList) {
+                var record = new HistoryRecord { Time = DateTime.Now, Name = rList[lucky].name };
+                _history.Add(record);
+                MessageBox.Show(rList[lucky].name);
+            }            
         }
 
         private void Button_ClearRewardList(object sender, RoutedEventArgs e) {
