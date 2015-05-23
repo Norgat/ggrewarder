@@ -138,19 +138,21 @@
 
             <TabControl Grid.Column="2" Grid.Row="1">
                 <TabItem Header="Чат" Width="150">
-                    <ListView Name="chatControl"
-                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown">
-                                    <Image Width="20" Height="20"></Image>
-                                    <TextBlock Text="{Binding Path=user_name}" FontWeight="Bold"></TextBlock>
-                                    <TextBlock Text="{Binding Path=text}" Margin="5 0 0 0" TextWrapping="Wrap"></TextBlock>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                    <Grid>
+                        <ListView Name="chatControl" 
+                                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown">
+                                        <Image Width="20" Height="20"></Image>
+                                        <TextBlock Text="{Binding Path=user_name}" FontWeight="Bold"></TextBlock>
+                                        <TextBlock Text="{Binding Path=text}" Margin="5 0 0 0" TextWrapping="Wrap"></TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
                 </TabItem>
                 
                 <TabItem Header="История результатов" Width="150">
