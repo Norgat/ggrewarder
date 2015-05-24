@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:us="clr-namespace:Rewarder.Controls"
-        Title="GoodGame Rewarder" MinHeight="350" MinWidth="900" Width="900" Height="500">
+        Title="GoodGame Rewarder" MinHeight="350" MinWidth="950" Width="900" Height="500">
     <Grid>       
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
@@ -47,7 +47,8 @@
                     <us:ColorButton x:Name="cb_donat2" ToolTip="Донат от 300 до 500" Width="50" Height="50" Margin="20 0 0 0" Text="D2"></us:ColorButton>
                     <us:ColorButton x:Name="cb_donat3" ToolTip="Донат от 500 до 3000" Width="50" Height="50" Margin="20 0 0 0" Text="D3"></us:ColorButton>
                     <us:ColorButton x:Name="cb_donat4" ToolTip="Донат от 3000 до 10000" Width="50" Height="50" Margin="20 0 0 0" Text="D4"></us:ColorButton>
-                    <us:ColorButton x:Name="cb_donat5" ToolTip="Донат больше 10000" Width="50" Height="50" Margin="20 0 0 0" Text="D5"></us:ColorButton>                    
+                    <us:ColorButton x:Name="cb_donat5" ToolTip="Донат больше 10000" Width="50" Height="50" Margin="20 0 0 0" Text="D5"></us:ColorButton>
+                    <us:ColorButton x:Name="cb_mod" ToolTip="Пользователи с правами модерирования" Width="50" Height="50" Margin="20 0 0 0" Text="M"></us:ColorButton>
                 </StackPanel>
             </Grid>
 

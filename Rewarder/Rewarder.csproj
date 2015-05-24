@@ -68,6 +68,7 @@
     <Compile Include="Selectors\InChatDeselector.cs" />
     <Compile Include="Selectors\NotPremiumSelector.cs" />
     <Compile Include="Selectors\PremiumSelector.cs" />
+    <Compile Include="Selectors\RightSelector.cs" />
     <Compile Include="Selectors\Single.cs" />
     <Compile Include="Selectors\WhiteListSelector.cs" />
     <Compile Include="XTimer.cs" />

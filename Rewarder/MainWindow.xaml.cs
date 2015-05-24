@@ -47,6 +47,7 @@ namespace Rewarder {
             cb_donat3.Selector = new Donat3Selector();
             cb_donat4.Selector = new Donat4Selector();
             cb_donat5.Selector = new Donat5Selector();
+            cb_mod.Selector = new RightSelector();
 
             //cb_chat.SelectorType = false;
 
@@ -120,10 +121,7 @@ namespace Rewarder {
                 cb_donat3.UserList = (FilteredList<User>)_manager.WhiteList;
                 cb_donat4.UserList = (FilteredList<User>)_manager.WhiteList;
                 cb_donat5.UserList = (FilteredList<User>)_manager.WhiteList;
-
-                //cb_chat.Selector = new InChatDeselector((IEnumerable<User>)_manager.ChatActive);
-                //cb_chat.UserList = (FilteredList<User>)_manager.ForRandom;
-
+                cb_mod.UserList = (FilteredList<User>)_manager.WhiteList;
 
                 _userListUpdateTimer = new Timer();
                 _userListUpdateTimer.Interval = 5000;
